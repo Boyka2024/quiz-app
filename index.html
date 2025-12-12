@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pediatrics Blood Quiz</title>
+  <style>
+    :root{--bg:#f7fafc;--card:#ffffff;--accent:#2563eb;--ok:#16a34a;--bad:#dc2626}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background:var(--bg); padding:24px;}
+    .container{max-width:760px;margin:0 auto;background:var(--card);border-radius:12px;padding:22px;box-shadow:0 6px 24px rgba(16,24,40,0.08);}    
+    h1{margin:0 0 8px 0;font-size:20px;color:#0f172a}
+    p.lead{margin:0 0 18px 0;color:#475569}
+    .qnum{font-weight:700;margin-bottom:6px}
+    .question{font-size:18px;margin:8px 0 14px 0}
+    .options{display:flex;flex-direction:column;gap:8px}
+    label.option{display:flex;gap:10px;align-items:center;padding:10px;border-radius:8px;border:1px solid #e6eef8;cursor:pointer}
+    input[type=radio]{width:18px;height:18px}
+    .controls{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+    button{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+    button.secondary{background:#e6eef8;color:#0f172a}
+    .progress{height:10px;background:#eef2ff;border-radius:999px;margin-top:12px;overflow:hidden}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#7c3aed);width:0%}
+    .result{margin-top:18px;padding:12px;border-radius:8px}
+    .result.ok{background:rgba(16,185,129,0.12);color:var(--ok);}
+    .result.bad{background:rgba(239,68,68,0.08);color:var(--bad)}
+    .small{font-size:13px;color:#334155}
+    .fb-correct{color:var(--ok);font-weight:700;margin-top:8px}
+    .fb-wrong{color:var(--bad);font-weight:700;margin-top:8px}
+    footer{margin-top:18px;font-size:13px;color:#64748b}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pediatrics Blood Quiz (Immediate Feedback)</h1>
+    <p class="lead">Select an answer — the quiz will instantly tell you whether it is correct before you can continue.</p>
+
+    <div id="quiz"></div>
+
+    <div class="controls">
+      <button id="prevBtn" class="secondary">Previous</button>
+      <div style="flex:1"></div>
+      <button id="nextBtn">Next</button>
+    </div>
+
+    <div class="progress" aria-hidden><i id="progbar"></i></div>
+
+    <div id="final" style="display:none"></div>
+
+    <footer>References: page numbers provided in the questions.</footer>
+  </div>
+
+<script>
+const questions = [
+  { id: 1, text: '1. What percentage of blood volume is typically composed of plasma?', choices: ['40-45%', '55%', '65%', '75%'], correct: 1, ref: 'Page 6' },
+  { id: 2, text: '2. Which of the following is a blood disorder characterized by a decrease in red blood cells or hemoglobin?', choices: ['Leukocytosis', 'Thrombocythemia', 'Anemia', 'Erythrocytosis'], correct: 2, ref: 'Page 12' },
+  { id: 3, text: '3. A child presents with pallor, irritability, poor sucking, and tachycardia. Which laboratory finding is most likely associated with Iron Deficiency Anemia?', choices: ['Elevated serum ferritin', 'Decreased Total Iron Binding Capacity (TIBC)', 'Low serum iron', 'Increased hemoglobin concentration'], correct: 2, ref: 'Pages 33, 34' },
+  { id: 4, text: '4. In Sickle Cell Anemia, what is the primary cause of vaso-occlusive (painful) crises?', choices: ['Excessive iron absorption', 'Clumping of stiff, sticky sickle-shaped cells blocking blood vessels', 'Overproduction of normal red blood cells', 'Deficiency of vitamin B12'], correct: 1, ref: 'Pages 52, 53' },
+  { id: 5, text: '5. Which therapeutic management is unique to Beta Thalassemia Major to prevent complications from frequent blood transfusions?', choices: ['Prophylactic penicillin therapy', 'Iron chelation therapy (e.g., Desferal)', 'High-dose vitamin C supplementation alone', 'Regular administration of diuretics'], correct: 1, ref: 'Pages 95, 96' },
+  { id: 6, text: '6. What is a key nursing intervention when administering oral iron supplements to a child?', choices: ['Give with milk to improve absorption.', 'Use a straw or place liquid at the back of the mouth to prevent tooth staining.', 'Always administer with meals to maximize tolerance.', 'Massage the injection site if given intramuscularly.'], correct: 1, ref: 'Page 46' },
+  { id: 7, text: '7. Which manifestation typically appears in an infant with Sickle Cell Anemia and is known as "hand-foot syndrome"?', choices: ['Symmetrical painful swelling of hands and feet', 'Generalized jaundice', 'Petechiae on the trunk', 'Enlarged head with frontal bossing'], correct: 0, ref: 'Pages 61, 62' },
+  { id: 8, text: '8. Why are manifestations of Sickle Cell Anemia not present in the first few months of life?', choices: ['Maternal antibodies provide protection.', 'Fetal hemoglobin (HgbF) protects against sickling.', 'The spleen is not fully developed.', 'Bone marrow production is inactive.'], correct: 1, ref: 'Page 56' },
+  { id: 9, text: '9. For a child in a Sickle Cell pain crisis, which nursing action is appropriate for pain management?', choices: ['Apply cold packs to constrict vessels and reduce swelling.', 'Encourage ambulation to improve circulation.', 'Use scheduled parenteral opioids like morphine for severe pain.', 'Restrict fluids to reduce cardiac workload.'], correct: 2, ref: 'Page 76' },
+  { id: 10, text: '10. What is the primary pathophysiological defect in Beta Thalassemia?', choices: ['Abnormal hemoglobin S formation', 'Deficiency in the synthesis of beta polypeptide chains of hemoglobin', 'Autoimmune destruction of red blood cells', 'Lack of intrinsic factor for iron absorption'], correct: 1, ref: 'Page 85' },
+  { id: 11, text: '11. What are the three primary cellular components of blood?', choices: ['RBCs, Plasma, Platelets', 'RBCs, WBCs, Platelets', 'Plasma, WBCs, Hemoglobin', 'Albumin, RBCs, WBCs'], correct: 1, ref: 'Page 7' },
+  { id: 12, text: '12. Blood is a specialized bodily fluid that delivers necessary substances to cells. What percentage of blood is cellular components?', choices: ['About 55%', 'Less than 1%', '40% to 45%', 'Over 60%'], correct: 2, ref: 'Pages 5, 7' },
+  { id: 13, text: '13. According to the lecture outlines, anemia can be classified into three main categories. Which of the following is NOT one of them?', choices: ['Anemia caused by inadequate erythropoiesis.', 'Anemia caused by blood loss.', 'Anemia caused by destruction of red blood cells.', 'Anemia caused by vitamin C deficiency.'], correct: 3, ref: 'Page 16' },
+  { id: 14, text: '14. What is the primary function of hemoglobin?', choices: ['Fight infection', 'Carry oxygen and facilitate carbon dioxide exchange', 'Initiate blood clotting', 'Transport hormones'], correct: 1, ref: 'Page 10' },
+  { id: 15, text: '15. Which of the following is a clinical manifestation of anemia related to shock from blood loss?', choices: ['Headache and irritability', 'Increased attention span', 'Hypertension', 'Moist and cool skin'], correct: 3, ref: 'Pages 20, 21' },
+  { id: 16, text: '16. Which item is listed among the "most common types of anemia"?', choices: ['Hypertension', 'Type 2 Diabetes', 'Glucose 6 phosphate dehydrogenase deficiency (G6PD)', 'Cystic Fibrosis'], correct: 2, ref: 'Page 22' },
+  { id: 17, text: '17. Iron Deficiency Anemia is defined as a condition in which blood lacks adequate healthy red blood cells due to:', choices: ['Increased total body iron', 'Decreased total body iron', 'Normal iron levels with poor utilization', 'Excess hemoglobin production'], correct: 1, ref: 'Page 24' },
+  { id: 18, text: '18. What is a cause of "Inadequate supply" leading to Iron Deficiency Anemia?', choices: ['Chronic diarrhea', 'Excessive demands for growth', 'Inadequate dietary intake', 'Acute hemorrhage'], correct: 2, ref: 'Pages 26, 28' },
+  { id: 19, text: '19. A risk factor for Iron Deficiency Anemia in infants and toddlers is:', choices: ['Early introduction of iron-fortified solids', 'Exclusive breast feeding without iron supplementation for >6 months', 'High socio-economic status', 'Low intake of cow’s milk'], correct: 1, ref: 'Page 31' },
+  { id: 20, text: '20. In the pathophysiology of Iron Deficiency Anemia, what happens to newly formed red blood cells?', choices: ['They become larger (macrocytic).', 'They become smaller (microcytic) and pale (hypochromic).', 'They become spherical.', 'Their number increases rapidly.'], correct: 1, ref: 'Page 32' },
+  { id: 21, text: '21. Which diagnostic study reveals the amount of iron stored in body tissue?', choices: ['Hematocrit', 'Serum ferritin', 'Serum iron', 'Total iron binding capacity (TIBC)'], correct: 1, ref: 'Page 34' },
+  { id: 22, text: '22. What is a component of therapeutic management for Iron Deficiency Anemia?', choices: ['Potassium supplements', 'Iron Rich Diet', 'Low-iron formula', 'Blood thinners'], correct: 1, ref: 'Page 36' },
+  { id: 23, text: '23. Which type of iron, found in animal products, has absorption that is not dependent on other food factors?', choices: ['Non-Heme iron', 'Heme iron', 'Ferritin iron', 'Transferrin iron'], correct: 1, ref: 'Page 38' },
+  { id: 24, text: '24. What enhances the absorption of non-heme iron from plant products?', choices: ['Tea', 'Coffee', 'Vitamin C', 'Calcium'], correct: 2, ref: 'Page 39' },
+  { id: 25, text: '25. What is a common side effect of oral iron therapy?', choices: ['Hypertension', 'Gastric irritation and constipation', 'Increased urination', 'Skin rash'], correct: 1, ref: 'Page 41' },
+  { id: 26, text: '26. What is an indication for parenteral (IM/IV) iron therapy?', choices: ['Mild iron deficiency', 'Intolerance of oral iron', 'As a first-line treatment for all children', 'Iron overload'], correct: 1, ref: 'Page 42' },
+  { id: 27, text: '27. In nursing management for Iron Deficiency Anemia, what should be done when giving liquid iron preparations?', choices: ['Mix with milk in a bottle.', 'Give it with a straw or dropper to the back of the mouth to prevent tooth staining.', 'Always give on a full stomach.', 'Follow the dose by massaging the gums.'], correct: 1, ref: 'Page 46' },
+  { id: 28, text: '28. When administering an IM iron injection, which technique is recommended?', choices: ['Massage the site vigorously after injection.', 'Inject superficially into a small muscle.', 'Use the Z-track method in a large muscle.', 'Apply heat immediately before injection.'], correct: 2, ref: 'Page 47' },
+  { id: 29, text: '29. Which is a potential nursing diagnosis for a child with Iron Deficiency Anemia?', choices: ['Fluid volume excess', 'Activity intolerance related to generalized weakness', 'Hyperthermia', 'Impaired gas exchange related to hyperoxia'], correct: 1, ref: 'Page 49' },
+  { id: 30, text: '30. Sickle Cell Anemia is characterized by red blood cells that are shaped like a:', choices: ['Sphere', 'Disc', '"C" or sickle', 'Rod'], correct: 2, ref: 'Page 51' },
+  { id: 31, text: '31. What happens when sickle cells form clumps in blood vessels?', choices: ['They improve oxygen delivery.', 'They block blood flow, causing pain and potential organ damage.', 'They dissolve quickly.', 'They stimulate white blood cell production.'], correct: 1, ref: 'Page 53' },
+  { id: 32, text: '32. A "Splenic sequestration crisis" in Sickle Cell Anemia is characterized by:', choices: ['Shrinkage of the spleen', 'Sudden massive splenomegaly and circulatory collapse', 'Increased white blood cell count only', 'Painless abdominal distension'], correct: 1, ref: 'Page 58' },
+  { id: 33, text: '33. Which physical finding is associated with Sickle Cell Anemia affecting the kidneys?', choices: ['Inability to concentrate urine', 'Increased urine specific gravity', 'Proteinuria only', 'No change in urinary function'], correct: 0, ref: 'Page 60' },
+  { id: 34, text: '34. What diagnostic test mixes anticoagulated blood with a special solution to detect the presence of HgbS?', choices: ['Complete Blood Count', 'Hemoglobin Electrophoresis', 'Sickle-turbidity test', 'Serum Bilirubin test'], correct: 2, ref: 'Page 63' },
+  { id: 35, text: '35. Which supportive measure is crucial during a sickle cell crisis to prevent further sickling?', choices: ['Dehydration', 'Bed rest without movement', 'Hydration (oral and IV)', 'High-protein diet only'], correct: 2, ref: 'Page 66' },
+  { id: 36, text: '36. What is the prophylactic antibiotic regimen for infants with Sickle Cell Anemia?', choices: ['No antibiotics are needed.', 'Penicillin V 125 mg orally twice a day starting by 2 months until at least age 5.', 'Amoxicillin only during crises.', 'Weekly IV antibiotics.'], correct: 1, ref: 'Page 67' },
+  { id: 37, text: '37. Besides routine vaccines, which additional vaccines are important for children with Sickle Cell Anemia?', choices: ['Hepatitis A and Typhoid', 'Pneumococcal, yearly influenza, and meningococcal', 'Varicella only', 'Rotavirus for adolescents'], correct: 1, ref: 'Page 68' },
+  { id: 38, text: '38. What is the goal of chronic blood transfusions in Sickle Cell Anemia management?', choices: ['To cure the disease permanently.', 'To keep the patient’s Hgb level above 15 g/dL.', 'To suppress erythropoiesis and keep HgbS below 30%.', 'To increase iron stores.'], correct: 2, ref: 'Page 69' },
+  { id: 39, text: '39. Why might a child with Sickle Cell Anemia need iron chelators?', choices: ['To treat iron deficiency from the disease.', 'To remove excess iron caused by chronic blood transfusions.', 'To enhance sickling during crises.', 'To improve antibiotic effectiveness.'], correct: 1, ref: 'Page 70' },
+  { id: 40, text: '40. What is currently the only cure for Sickle Cell Disease mentioned in the file?', choices: ['Regular blood transfusions', 'Stem cell transplant (bone marrow transplant)', 'High-dose iron therapy', 'Gene therapy (approved and standard)'], correct: 1, ref: 'Page 71' },
+  { id: 41, text: '41. A key point in family education for Sickle Cell Anemia is the need for:', choices: ['Avoiding all vaccinations.', 'Urgent medical evaluation for fever or signs of crisis.', 'Limiting fluid intake.', 'High-altitude living.'], correct: 1, ref: 'Page 72' },
+  { id: 42, text: '42. During a painful crisis, what should be applied to the affected area?', choices: ['Ice packs', 'Hot application', 'Tight bandages', 'Nothing, just rest'], correct: 1, ref: 'Page 75' },
+  { id: 43, text: '43. For severe pain during a sickle cell crisis, what medication is indicated?', choices: ['Oral acetaminophen only', 'Parenteral opioids like morphine on a scheduled basis', 'Topical analgesics', 'Herbal supplements'], correct: 1, ref: 'Page 76' },
+  { id: 44, text: '44. What is an important nursing action to maintain cardiopulmonary status during a crisis?', choices: ['Encourage bed rest only.', 'Use a spirometer to encourage deeper inspiration.', 'Administer sedatives to ensure sleep.', 'Restrict oxygen use.'], correct: 1, ref: 'Page 77' },
+  { id: 45, text: '45. Which is a relevant nursing diagnosis for Sickle Cell Anemia?', choices: ['Risk for infection', 'Fluid volume excess related to overhydration', 'Constipation related to high fiber diet', 'Ineffective thermoregulation related to hypothermia'], correct: 0, ref: 'Page 79' },
+  { id: 46, text: '46. Beta Thalassemia is defined as an inherited disorder causing:', choices: ['Increased production of healthy RBCs and hemoglobin.', 'Fewer healthy RBCs and less hemoglobin than normal.', 'Abnormally shaped RBCs that block vessels.', 'Overactive white blood cell production.'], correct: 1, ref: 'Page 82' },
+  { id: 47, text: '47. Normal postnatal hemoglobin is composed of how many alpha and beta chains?', choices: ['1 alpha and 3 beta', '2 alpha and 2 beta', '3 alpha and 1 beta', '4 alpha chains only'], correct: 1, ref: 'Page 85' },
+  { id: 48, text: '48. Why does a baby with Beta Thalassemia Major seem normal at birth?', choices: ['Maternal immunity lasts for months.', 'The predominant hemoglobin is fetal (Hb F), which has no beta chains.', 'Symptoms are always delayed until adulthood.', 'The bone marrow compensates initially.'], correct: 1, ref: 'Page 86' },
+  { id: 49, text: '49. Which of the following is a clinical manifestation of Beta Thalassemia related to anemia?', choices: ['Hypertension', 'Polycythemia', 'Poor feeding and failure to thrive', 'Bradycardia'], correct: 2, ref: 'Page 88' },
+  { id: 50, text: '50. Characteristic bone changes in Beta Thalassemia include:', choices: ['Decreased skull size', 'Prominent frontal and parietal bosses', 'Strengthened long bones', 'No skeletal changes'], correct: 1, ref: 'Page 90' },
+  { id: 51, text: '51. Which diagnostic study confirms Beta Thalassemia by measuring HgbA and HgbF levels?', choices: ['Urinalysis', 'Hemoglobin Electrophoresis', 'Sickle cell test', 'Liver biopsy'], correct: 1, ref: 'Page 92' },
+  { id: 52, text: '52. What is the goal of blood transfusion therapy in Beta Thalassemia Major?', choices: ['To cure the disease.', 'To maintain sufficient Hgb to prevent bone deformities and support growth.', 'To decrease iron levels.', 'To prepare for surgery.'], correct: 1, ref: 'Page 94' },
+  { id: 53, text: '53. What is "hemosiderosis" in the context of Beta Thalassemia?', choices: ['Iron deficiency from poor diet.', 'Storage of excess iron in cells causing toxicity.', 'A type of infection common in thalassemia.', 'Breakdown of hemoglobin in the spleen.'], correct: 1, ref: 'Page 95' },
+  { id: 54, text: '54. Desferal is an iron chelating therapy that causes excretion of iron, turning urine:', choices: ['Dark brown', 'Orange red', 'Green', 'Clear'], correct: 1, ref: 'Page 96' },
+  { id: 55, text: '55. What potential cure for Thalassemia involves replacing defective blood-forming stem cells?', choices: ['Antibiotic therapy', 'Stem Cell Transplantation', 'Frequent phlebotomy', 'Diet modification alone'], correct: 1, ref: 'Page 97' },
+  { id: 56, text: '56. A key aspect of nursing management for Beta Thalassemia is to:', choices: ['Discourage transfusion compliance.', 'Promote compliance with transfusion and chelating therapy.', 'Limit vitamin C intake.', 'Encourage high-iron diet.'], correct: 1, ref: 'Page 98' },
+  { id: 57, text: '57. Which nursing diagnosis is applicable to Beta Thalassemia?', choices: ['Risk for infection', 'Activity intolerance related to generalized weakness', 'Knowledge deficit related to the disease process', 'All of the above'], correct: 3, ref: 'Page 99' },
+  { id: 58, text: '58. According to the table of normal values, what is the approximate hemoglobin level for a 1-month-old infant?', choices: ['19.5 g/dL', '17.5 g/dL', '14 g/dL', '11.5 g/dL'], correct: 2, ref: 'Page 15' },
+  { id: 59, text: '59. Blood disorders that increase blood components include all EXCEPT:', choices: ['Erythrocytosis', 'Leukocytosis', 'Thrombocytopenia', 'Thrombocythemia'], correct: 2, ref: 'Page 13' },
+  { id: 60, text: '60. Central nervous system manifestations of anemia can include:', choices: ['Headache and decreased attention span', 'Hyperactivity and euphoria', 'Increased deep tendon reflexes', 'Photophobia only'], correct: 0, ref: 'Page 19' },
+  { id: 61, text: '61. What is a general manifestation of anemia?', choices: ['Dyspnea on exertion', 'Bradycardia', 'Hypertension', 'Warm, dry skin'], correct: 0, ref: 'Page 18' },
+  { id: 62, text: '62. Iron Deficiency Anemia can be caused by "Excessive demands". An example is:', choices: ['Chronic diarrhea', 'Blood loss during infancy', 'Adequate dietary iron', 'Normal growth rate'], correct: 1, ref: 'Page 30' },
+  { id: 63, text: '63. Which factor inhibits the absorption of non-heme iron if taken within one hour of a meal?', choices: ['Vitamin C', 'Orange juice', 'Tea or coffee', 'Strawberries'], correct: 2, ref: 'Page 39' },
+  { id: 64, text: '64. After hemoglobin normalizes in Iron Deficiency Anemia, how long should iron therapy continue to replace stores?', choices: ['Stop immediately.', '1-2 months', '6-12 months', 'Only during crises'], correct: 1, ref: 'Page 40' },
+  { id: 65, text: '65. In Sickle Cell Anemia, physical examination of the lungs may reveal:', choices: ['Pneumonia & emboli from occluded sickled cells', 'Clear lungs always', 'Asthma only', 'Decreased respiratory rate'], correct: 0, ref: 'Page 59' },
+  { id: 66, text: '66. An "Aplastic crisis" in Sickle Cell Anemia refers to:', choices: ['Increased RBC production.', 'Sudden attack of bone marrow aplasia causing severe anemia.', 'Splenic enlargement.', 'Vaso-occlusion in the brain.'], correct: 1, ref: 'Page 58' },
+  { id: 67, text: '67. What is the purpose of using the Z-track technique for IM iron injections?', choices: ['To speed up absorption.', 'To minimize skin staining and irritation.', 'To make the injection painless.', 'To allow for a larger volume injection.'], correct: 1, ref: 'Page 48' },
+  { id: 68, text: '68. Which statement about heme iron is TRUE?', choices: ['It is found in plant products.', 'Its absorption is enhanced by tea.', 'Its absorption is not dependent on other food factors.', 'It is less absorbable than non-heme iron.'], correct: 2, ref: 'Page 38' },
+  { id: 69, text: '69. The "Buffy Coat" in a centrifuged blood sample contains:', choices: ['Only red blood cells.', 'Plasma and platelets.', 'White blood cells and platelets.', 'Only plasma.'], correct: 2, ref: 'Page 8' },
+  { id: 70, text: '70. What is the oxygen-carrying molecule within red blood cells?', choices: ['Albumin', 'Hemoglobin', 'Fibrinogen', 'Globulin'], correct: 1, ref: 'Page 9' },
+  { id: 71, text: '71. Which of the following is NOT a typical cause of Iron Deficiency Anemia according to the file?', choices: ['Impaired absorption (e.g., chronic diarrhea)', 'Inadequate dietary intake', 'Excessive demands (e.g., growth, blood loss)', 'Genetic mutation causing abnormal hemoglobin'], correct: 3, ref: 'Pages 25-30' },
+  { id: 72, text: '72. What is the main consequence of anemia on tissue?', choices: ['Increased oxygen availability.', 'Reduction in the oxygen available to the tissue.', 'Excess nutrient delivery.', 'Improved waste removal.'], correct: 1, ref: 'Page 14' },
+  { id: 73, text: '73. What does the term "microcytic" refer to in the context of Iron Deficiency Anemia?', choices: ['Large red blood cells', 'Small red blood cells', 'Normal-sized red blood cells', 'Misshapen red blood cells'], correct: 1, ref: 'Page 32' },
+  { id: 74, text: '74. Why is vitamin C often given with Desferal (iron chelator)?', choices: ['To enhance iron absorption from the gut.', 'To improve the taste of the medication.', 'To increase iron excretion in the urine.', 'To protect the stomach lining.'], correct: 2, ref: 'Page 96' },
+  { id: 75, text: '75. In Sickle Cell Anemia, which organ\'s decreased phagocytic function can lead to infection?', choices: ['Liver', 'Spleen', 'Kidneys', 'Lungs'], correct: 1, ref: 'Page 60' },
+  { id: 76, text: '76. What is the term for the chronic production of bilirubin leading to jaundice and gallstones in Sickle Cell Anemia?', choices: ['Hemolysis', 'Ischemia', 'Infarction', 'Sequestration'], correct: 0, ref: 'Page 60' },
+  { id: 77, text: '77. In Beta Thalassemia, what is the compensatory increase that leads to defective hemoglobin formation?', choices: ['Increase in beta-chain synthesis.', 'Increase in alpha-chain synthesis.', 'Increase in gamma-chain synthesis.', 'Increase in heme synthesis.'], correct: 1, ref: 'Page 85' },
+  { id: 78, text: '78. What does TIBC (Total Iron Binding Capacity) measure?', choices: ['The amount of iron stored in tissue.', 'The ability of transferrin to carry iron in the blood.', 'The number of red blood cells.', 'The oxygen level in blood.'], correct: 1, ref: 'Page 34' },
+  { id: 79, text: '79. Which type of anemia listed is caused by destruction of red blood cells?', choices: ['Iron deficiency anemia', 'Sickle cell anemia', 'Aplastic anemia (from the list)', 'Beta Thalassemia'], correct: 1, ref: 'Pages 16, 22' },
+  { id: 80, text: '80. The primary medium of exchange for oxygen and carbon dioxide in the blood is:', choices: ['Plasma', 'White blood cells', 'Hemoglobin', 'Platelets'], correct: 2, ref: 'Page 10' },
+  { id: 81, text: '81. Which of these is a risk factor for Iron Deficiency Anemia in adolescents?', choices: ['Rapid growth and menstruation', 'Decreased physical activity', 'High iron diet', 'Male gender only'], correct: 0, ref: 'Page 31' },
+  { id: 82, text: '82. In the pathophysiology of Sickle Cell Anemia, what causes the cells to sickle?', choices: ['Abnormal hemoglobin (HgbS)', 'Lack of iron', 'Excess oxygen', 'Vitamin deficiency'], correct: 0, ref: 'Page 52' },
+  { id: 83, text: '83. A child with Beta Thalassemia might have a "bronzed, freckled complexion" due to:', choices: ['Sun exposure.', 'Iron overload (hemosiderosis).', 'Liver failure.', 'Vitamin A deficiency.'], correct: 1, ref: 'Page 89' },
+  { id: 84, text: '84. What is the target for the percentage of a sickle cell patient\'s cells containing HgbS during chronic transfusion therapy?', choices: ['Below 30%', 'Above 70%', 'Exactly 50%', 'Maintained at 100%'], correct: 0, ref: 'Page 69' },
+  { id: 85, text: '85. Nursing management for Iron Deficiency Anemia includes dietary counseling. What is an important point for parents of infants?', choices: ['Delay introduction of solids indefinitely.', 'Discuss the importance of iron-fortified formula and timely introduction of solids.', 'Encourage early cow\'s milk feeding.', 'Avoid vitamin C-rich fruits.'], correct: 1, ref: 'Page 44' },
+  { id: 86, text: '86. For optimal absorption, oral iron should be given:', choices: ['With meals always.', 'On an empty stomach with acid juice.', 'At bedtime only.', 'Mixed in whole milk.'], correct: 1, ref: 'Page 45' },
+  { id: 87, text: '87. A child with Sickle Cell Anemia should be isolated from sources of infection because:', choices: ['They are immune to all infections.', 'They have an increased risk of severe infection.', 'Infection improves sickling.', 'It is not a major concern.'], correct: 1, ref: 'Page 74' },
+  { id: 88, text: '88. In a vaso-occlusive crisis, pain can be managed at home initially with:', choices: ['Intravenous morphine.', 'Oral fluids, oral analgesics (ibuprofen), and comfort measures.', 'Nothing, it will resolve on its own.', 'Strenuous exercise.'], correct: 1, ref: 'Page 75' },
+  { id: 89, text: '89. Which of the following is NOT part of the supportive therapy during a sickle cell crisis?', choices: ['Hydration', 'Electrolyte replacement', 'Application of cold packs', 'Analgesics for pain'], correct: 2, ref: 'Pages 66, 75' },
+  { id: 90, text: '90. The nursing role in Beta Thalassemia includes observing for complications of multiple blood transfusions. What is a major complication?', choices: ['Iron overload (hemosiderosis)', 'Vitamin D deficiency', 'Weight loss', 'Alkalosis'], correct: 0, ref: 'Pages 95, 98' },
+  { id: 91, text: '91. Which diagnostic finding would be expected in untreated Iron Deficiency Anemia?', choices: ['High serum ferritin', 'Low serum iron, High TIBC', 'Low TIBC', 'Increased hemoglobin concentration'], correct: 1, ref: 'Page 34' },
+  { id: 92, text: '92. What does a "systolic murmur" in a child with severe Iron Deficiency Anemia indicate?', choices: ['Normal finding in all children.', 'Possible cardiac dilatation and failure.', 'A congenital heart defect is always present.', 'It is insignificant.'], correct: 1, ref: 'Page 33' },
+  { id: 93, text: '93. In the diagram showing blood components (Page 8), what is the approximate ratio of Red Blood Cells to Plasma?', choices: ['55% RBCs, 45% Plasma', '45% RBCs, 55% Plasma', '1% RBCs, 99% Plasma', '90% RBCs, 10% Plasma'], correct: 1, ref: 'Page 8' },
+  { id: 94, text: '94. The lecture objectives state that students should be able to compare sickle cell anemia and beta thalassemia in relation to:', choices: ['Pharmacology only.', 'Pathophysiology and nursing care.', 'Surgical interventions.', 'Dietary recommendations only.'], correct: 1, ref: 'Page 3' },
+  { id: 95, text: '95. Which statement about anemia is TRUE based on the file?', choices: ['It is a rare blood disorder.', 'It only affects adults.', 'It diminishes the oxygen-carrying capacity of the blood.', 'It increases the number of RBCs.'], correct: 2, ref: 'Page 14' },
+  { id: 96, text: '96. A side effect of adequate dosage of oral iron therapy is:', choices: ['Red stools.', 'Black stools.', 'Yellow stools.', 'Greasy stools.'], correct: 1, ref: 'Page 41' },
+  { id: 97, text: '97. What is the role of prophylactic penicillin in Sickle Cell Anemia?', choices: ['To cure painful crises.', 'To prevent serious infections, particularly from pneumococcus.', 'To improve hemoglobin levels.', 'To reduce iron overload.'], correct: 1, ref: 'Page 67' },
+  { id: 98, text: '98. In Beta Thalassemia, the imbalance of polypeptide chains damages RBCs, leading to:', choices: ['Mild, asymptomatic anemia.', 'Severe anemia.', 'Polycythemia.', 'Leukopenia.'], correct: 1, ref: 'Page 86' },
+  { id: 99, text: '99. What does the "Correct" index in the question array refer to?', choices: ['The page number of the answer.', 'The index of the correct choice within the choices array (starting from 0).', 'The question ID number.', 'The number of choices.'], correct: 1, ref: 'N/A - Format instruction' },
+  { id: 100, text: '100. The final page of the presentation file simply states:', choices: ['References', 'Questions?', 'Thank You', 'Contact Information'], correct: 2, ref: 'Page 100' },
+  { id: 101, text: '1. What is the definition of a high-risk neonate?', choices: ['Any newborn with birth weight over 4000g', 'A newborn who has greater than average chance of morbidity or mortality due to threats during prenatal, perinatal, or postnatal periods', 'Only preterm infants born before 28 weeks', 'Infants born to mothers over 35 years old'], correct: 1, ref: 'Slide 3' },
+  { id: 102, text: '2. Which of the following is NOT mentioned as a maternal factor predisposing to high-risk neonates?', choices: ['Lack of antenatal care', 'Previous history of obstetric complications', 'Maternal diabetes mellitus', 'Neonatal asphyxia'], correct: 3, ref: 'Slide 5' },
+  { id: 103, text: '3. According to the presentation, neonatal factors predisposing to high-risk status include all EXCEPT:', choices: ['Neonatal infection', 'Congenital anomalies', 'Maternal heart disease', 'Prematurity'], correct: 2, ref: 'Slide 6' },
+  { id: 104, text: '4. How are high-risk newborns classified according to gestational age?', choices: ['SGA, AGA, LGA', 'Preterm, Term, Post-term', 'LBW, VLBW, ELBW', 'Early neonatal death, Late neonatal death'], correct: 1, ref: 'Slide 8' },
+  { id: 105, text: '5. A preterm neonate is defined as one born before how many weeks of gestation?', choices: ['40 weeks', '38 weeks', '42 weeks', '36 weeks'], correct: 1, ref: 'Slide 8' },
+  { id: 106, text: '6. What does SGA (Small for Gestational Age) mean when plotted on an intrauterine growth chart?', choices: ['Above 90th percentile', 'Between 10th and 90th percentile', 'Below 10th percentile', 'Exactly at 50th percentile'], correct: 2, ref: 'Slide 10' },
+  { id: 107, text: '7. An infant with birth weight less than 2500g regardless of gestational age is classified as:', choices: ['VLBW (Very Low Birth Weight)', 'ELBW (Extremely Low Birth Weight)', 'LBW (Low Birth Weight)', 'Normal birth weight'], correct: 2, ref: 'Slide 12' },
+  { id: 108, text: '8. What is the weight criterion for VVLBW (Very Very Low Birth Weight) or ELBW?', choices: ['<2500g', '<1500g', '<1000g', '<500g'], correct: 2, ref: 'Slide 12' },
+  { id: 109, text: '9. Which of the following defines a live birth according to the presentation?', choices: ['Only if the baby cries immediately', 'When the neonate manifests any heartbeat, breathes, or displays voluntary movement', 'Only if birth weight is above 1000g', 'When the baby survives for 7 days'], correct: 1, ref: 'Slide 14' },
+  { id: 110, text: '10. What is fetal death?', choices: ['Death occurring in the first week of life', 'Death of fetus after 20 weeks of gestation and before delivery, with absence of signs of life after birth', 'Death occurring between 7-27 days of life', 'Death occurring between 28 days to 1 year'], correct: 1, ref: 'Slide 14' },
+  { id: 111, text: '11. Neonatal death that occurs in the first week of life is called:', choices: ['Late neonatal death', 'Postnatal death', 'Perinatal death', 'Early neonatal death'], correct: 3, ref: 'Slide 15' },
+  { id: 112, text: '12. According to pathophysiologic problems, high-risk neonates may experience all EXCEPT:', choices: ['Chemical disturbances like hypoglycemia', 'Immature organs and systems', 'Hyperbilirubinemia and respiratory distress', 'Advanced organ development'], correct: 3, ref: 'Slide 16' },
+  { id: 113, text: '13. Which characteristic position is typical of a high-risk/preterm infant?', choices: ['Extended rigid posture', 'Frog-legged position with elbows, wrists & ankles touching bed', 'Prone position with extended limbs', 'Sitting position with support'], correct: 1, ref: 'Slide 18' },
+  { id: 114, text: '14. What is a characteristic of a high-risk infant\'s head?', choices: ['Relatively small with sunken eyes', 'Relatively large with prominent eyes & soft ears', 'Normal proportion with hard ears', 'Asymmetrical with one eye larger'], correct: 1, ref: 'Slide 18' },
+  { id: 115, text: '15. How is the thorax of a high-risk/preterm infant described compared to full-term?', choices: ['More firm', 'Less firm', 'Broader', 'Narrower but longer'], correct: 1, ref: 'Slide 19' },
+  { id: 116, text: '16. The skin of a high-risk/preterm infant is described as:', choices: ['Thick and opaque', 'Red, very transparent, gelatinous, shiny with visible superficial blood vessels', 'Dry and peeling', 'Yellow and jaundiced always'], correct: 1, ref: 'Slide 19' },
+  { id: 117, text: '17. Which reflexes may be absent or poor in high-risk infants?', choices: ['Sucking, swallowing & gag reflexes', 'Moro reflex only', 'Grasp reflex only', 'All reflexes are typically strong'], correct: 0, ref: 'Slide 20' },
+  { id: 118, text: '18. What indicates neuromuscular immaturity in high-risk infants?', choices: ['Hypertonia and hyperreflexia', 'Poor muscle tone & weak reflexes', 'Advanced motor skills', 'Strong, coordinated movements'], correct: 1, ref: 'Slide 20' },
+  { id: 119, text: '19. In male high-risk/preterm infants, what is characteristic of the genitalia?', choices: ['Testicles are usually fully descended in scrotum', 'Testicles are high in scrotum or in inguinal canal; scrotum has little rugae', 'Scrotum is heavily pigmented and pendulous', 'Penis is unusually large'], correct: 1, ref: 'Slide 21' },
+  { id: 120, text: '20. In female high-risk/preterm infants, what is characteristic of the genitalia?', choices: ['Labia majora are well developed and cover labia minora', 'Labia majora are widely separated by labia minora & clitoris', 'Clitoris is not visible', 'Labia are fused'], correct: 1, ref: 'Slide 21' },
+  { id: 121, text: '21. What is the first component of the nursing care plan for high-risk infants?', choices: ['Implementation', 'Evaluation', 'Assessment', 'Diagnosis'], correct: 2, ref: 'Slide 23' },
+  { id: 122, text: '22. Which of these is NOT listed as a type of assessment for high-risk infants?', choices: ['Cardiovascular assessment', 'Gastrointestinal assessment', 'Psychosocial assessment of parents', 'Neurologic-Musculoskeletal assessment'], correct: 2, ref: 'Slide 24' },
+  { id: 123, text: '23. Which nursing diagnosis is mentioned as relevant for high-risk infants?', choices: ['Ineffective breathing pattern related to pulmonary and neuromuscular immaturity', 'Risk for falls related to immature gait', 'Chronic pain related to multiple procedures', 'Impaired parenting related to maternal anxiety'], correct: 0, ref: 'Slide 25' },
+  { id: 124, text: '24. "Ineffective Thermoregulation" in high-risk infants is related to:', choices: ['Excessive subcutaneous fat', 'Mature control and good insulation', 'Immature control and decreased subcutaneous body fat', 'Hyperthyroidism'], correct: 2, ref: 'Slide 25' },
+  { id: 125, text: '25. "Risk for infection" in high-risk infants is related to:', choices: ['Excessive immunologic defenses', 'Deficient immunologic defenses', 'Overcrowding in NICU', 'Maternal antibodies only'], correct: 1, ref: 'Slide 25' },
+  { id: 126, text: '26. Which maternal medical illness is specifically mentioned as a risk factor?', choices: ['Asthma', 'Diabetes mellitus', 'Migraine', 'Arthritis'], correct: 1, ref: 'Slide 5' },
+  { id: 127, text: '27. What complication of labor and delivery is mentioned as a risk factor?', choices: ['Short rupture of membranes', 'Prolonged rupture of membranes', 'Normal vaginal delivery', 'Epidural anesthesia'], correct: 1, ref: 'Slide 5' },
+  { id: 128, text: '28. Which neonatal factor is explicitly listed?', choices: ['Neonatal asphyxia', 'Maternal age over 40', 'Placental abruption', 'Umbilical cord prolapse'], correct: 0, ref: 'Slide 6' },
+  { id: 129, text: '29. A term neonate is born between how many weeks of gestation?', choices: ['34-37 weeks', '38-42 weeks', '42-44 weeks', 'Less than 36 weeks'], correct: 1, ref: 'Slide 8' },
+  { id: 130, text: '30. A post-term neonate is born after how many weeks?', choices: ['40 weeks', '38 weeks', '42 weeks', '44 weeks'], correct: 2, ref: 'Slide 8' },
+  { id: 131, text: '31. AGA (Appropriate for Gestational Age) infants plot between which percentiles on growth chart?', choices: ['Below 10th', '10th to 90th', 'Above 90th', '25th to 75th'], correct: 1, ref: 'Slide 10' },
+  { id: 132, text: '32. LGA (Large for Gestational Age) infants plot above which percentile?', choices: ['10th', '25th', '50th', '90th'], correct: 3, ref: 'Slide 10' },
+  { id: 133, text: '33. VLBW (Very Low Birth Weight) is defined as birth weight less than:', choices: ['2500g', '2000g', '1500g', '1000g'], correct: 2, ref: 'Slide 12' },
+  { id: 134, text: '34. Late neonatal death occurs at what age?', choices: ['First 24 hours', 'First week (0-7 days)', '7 to 27 days', '28 days to 1 year'], correct: 2, ref: 'Slide 15' },
+  { id: 135, text: '35. Postnatal death occurs between:', choices: ['Birth to 28 days', '7 to 27 days', '28 days to 1 year', '1 to 5 years'], correct: 2, ref: 'Slide 15' },
+  { id: 136, text: '36. Which chemical disturbance is mentioned as a pathophysiologic problem?', choices: ['Hyperglycemia', 'Hypoglycemia', 'Hypernatremia', 'Acidosis'], correct: 1, ref: 'Slide 16' },
+  { id: 137, text: '37. Which immature system problem is mentioned?', choices: ['Hyperbilirubinemia', 'Advanced renal function', 'Precocious puberty', 'Hypermature lungs'], correct: 0, ref: 'Slide 16' },
+  { id: 138, text: '38. How is the abdomen of a high-risk/preterm infant described?', choices: ['Scaphoid (sunken)', 'Flat', 'Protrudes', 'Distended with visible peristalsis'], correct: 2, ref: 'Slide 19' },
+  { id: 139, text: '39. How are the extremities of a high-risk/preterm infant described?', choices: ['Long and thin with long fingernails', 'Thin, muscles small and soft, with short fingernails & toenails', 'Edematous and cyanotic', 'Well-developed with strong muscles'], correct: 1, ref: 'Slide 19' },
+  { id: 140, text: '40. How is the hair of a high-risk/preterm infant described?', choices: ['Thick and curly', 'Absent', 'Fuzzy', 'Dark and abundant'], correct: 2, ref: 'Slide 19' },
+  { id: 141, text: '41. The breast tissue and nipple of a high-risk/preterm female infant are described as:', choices: ['Well-developed with prominent nipples', 'Little breast tissue & nipple barely visible', 'Enlarged with secretion', 'Asymmetrical'], correct: 1, ref: 'Slide 21' },
+  { id: 142, text: '42. Which component follows "Assessment" in the nursing care plan?', choices: ['Nursing diagnosis', 'Patient outcome', 'Nursing intervention', 'Evaluation'], correct: 0, ref: 'Slide 23' },
+  { id: 143, text: '43. What is listed after "Nursing diagnosis" in the care plan sequence?', choices: ['Assessment', 'Patient outcome', 'Nursing intervention', 'Evaluation'], correct: 1, ref: 'Slide 23' },
+  { id: 144, text: '44. Which assessment type is specifically mentioned for monitoring?', choices: ['Psychological assessment', 'Monitoring physiological data', 'Family dynamics assessment', 'Environmental assessment'], correct: 1, ref: 'Slide 24' },
+  { id: 145, text: '45. The presentation was prepared by:', choices: ['Dr. Hanaa Tharwat', 'Dr. Hadeer Hussien Soliman', 'Dr. Suez Canal', 'Faculty of Medicine'], correct: 1, ref: 'Title slide' },
+  { id: 146, text: '46. The presenter\'s position is:', choices: ['Professor of Pediatrics', 'Lecturer of pediatric nursing', 'Neonatologist', 'NICU nurse'], correct: 1, ref: 'Title slide' },
+  { id: 147, text: '47. The outlines include all EXCEPT:', choices: ['Definition of high risk neonate', 'Predisposing factors', 'Specific medication dosages', 'Nursing care plan'], correct: 2, ref: 'Slide 2' },
+  { id: 148, text: '48. A high-risk neonate can be exposed to dangerous conditions during which periods?', choices: ['Prenatal only', 'Perinatal only', 'Postnatal only', 'Prenatal, perinatal, and postnatal'], correct: 3, ref: 'Slide 3' },
+  { id: 149, text: '49. Poor socioeconomic condition is a risk factor under:', choices: ['Neonatal factors', 'Maternal factors', 'Environmental factors only', 'Not a risk factor'], correct: 1, ref: 'Slide 5' },
+  { id: 150, text: '50. Previous history of obstetric complications includes:', choices: ['Abortion and toxemias', 'Diabetes only', 'Hypertension only', 'Previous cesarean only'], correct: 0, ref: 'Slide 5' },
+  { id: 151, text: '51. Which is a neonatal factor?', choices: ['Placental insufficiency', 'Cesarean section', 'Low Apgar score', 'Maternal infection'], correct: 2, ref: 'Slide 6' },
+  { id: 152, text: '52. The classifications of high-risk newborns include classification according to:', choices: ['Size, gestational age, mortality, pathophysiologic problems', 'Color, length, head circumference, sex', 'Maternal age, parity, blood type', 'Socioeconomic status, parental education'], correct: 0, ref: 'Slide 7' },
+  { id: 153, text: '53. Using gestational age and birth weight, neonates can be classified as:', choices: ['Preterm, term, post-term', 'SGA, AGA, LGA', 'LBW, VLBW, ELBW', 'Live birth, fetal death'], correct: 1, ref: 'Slide 10' },
+  { id: 154, text: '54. A baby born at 39 weeks weighing 2800g plots at the 8th percentile. How is it classified by size for gestational age?', choices: ['LGA', 'AGA', 'SGA', 'VLBW'], correct: 2, ref: 'Slide 10' },
+  { id: 155, text: '55. A baby weighing 1200g is classified as:', choices: ['LBW', 'VLBW', 'ELBW', 'Normal weight'], correct: 1, ref: 'Slide 12' },
+  { id: 156, text: '56. A baby weighing 800g is classified as:', choices: ['LBW', 'VLBW', 'ELBW/VVLBW', 'Macrosomic'], correct: 2, ref: 'Slide 12' },
+  { id: 157, text: '57. Which mortality classification refers to death in the first 27 days of life?', choices: ['Fetal death', 'Neonatal death', 'Postnatal death', 'Infant death'], correct: 1, ref: 'Slide 15' },
+  { id: 158, text: '58. The diagram showing "fetus, birth, live birth, neonatal death, postnatal death" illustrates classification by:', choices: ['Gestational age', 'Size', 'Mortality', 'Pathophysiology'], correct: 2, ref: 'Slide 15' },
+  { id: 159, text: '59. Hypocalcemia is mentioned as an example of:', choices: ['Immature organ problem', 'Chemical disturbance', 'Infection', 'Genetic disorder'], correct: 1, ref: 'Slide 16' },
+  { id: 160, text: '60. Respiratory distress in high-risk neonates is related to:', choices: ['Immature respiratory system', 'Overdeveloped lungs', 'Maternal smoking only', 'Birth trauma only'], correct: 0, ref: 'Slide 16' },
+  { id: 161, text: '61. General characteristics of high-risk infants include that they are:', choices: ['Large', 'Small', 'Average size', 'Overweight'], correct: 1, ref: 'Slide 17' },
+  { id: 162, text: '62. The typical posture described suggests:', choices: ['Hypertonia', 'Hypotonia with frog-leg position', 'Opisthotonus', 'Decerebrate posturing'], correct: 1, ref: 'Slide 18' },
+  { id: 163, text: '63. The head is turned to one side and there are few spontaneous movements, indicating:', choices: ['Hyperactivity', 'Normal activity', 'Reduced activity', 'Seizure activity'], correct: 2, ref: 'Slide 18' },
+  { id: 164, text: '64. Visible superficial blood vessels on the skin indicate:', choices: ['Thick skin', 'Transparent, thin skin', 'Bruising', 'Infection'], correct: 1, ref: 'Slide 19' },
+  { id: 165, text: '65. Poor muscle tone is a sign of:', choices: ['Neuromuscular maturity', 'Neuromuscular immaturity', 'CNS damage only', 'Spinal cord injury'], correct: 1, ref: 'Slide 20' },
+  { id: 166, text: '66. In male preterm infants, the scrotum has:', choices: ['Deep rugae and is heavily pigmented', 'Little rugae, not very pigmented', 'No rugae and is dark', 'Edema and erythema'], correct: 1, ref: 'Slide 21' },
+  { id: 167, text: '67. The nursing care plan components in order are:', choices: ['Diagnosis, Assessment, Intervention, Outcome', 'Assessment, Diagnosis, Outcome, Intervention', 'Outcome, Assessment, Diagnosis, Intervention', 'Intervention, Assessment, Diagnosis, Outcome'], correct: 1, ref: 'Slide 23' },
+  { id: 168, text: '68. Which specific assessment is NOT listed?', choices: ['Cardiovascular', 'Gastrointestinal', 'Genitourinary', 'Endocrine'], correct: 3, ref: 'Slide 24' },
+  { id: 169, text: '69. "Ineffective breathing pattern" is related to decreased energy and fatigue as well as:', choices: ['Pulmonary and neuromuscular immaturity', 'Maternal sedation', 'Congenital heart disease only', 'Infection'], correct: 0, ref: 'Slide 25' },
+  { id: 170, text: '70. The presentation begins with:', choices: ['An abstract', 'Objectives', 'Bismillah and title', 'References'], correct: 2, ref: 'First slide' },
+  { id: 171, text: '71. The outlines include "Characteristics of high risk neonate" and:', choices: ['Pharmacological management', 'Surgical interventions', 'Nursing care plan', 'Discharge planning'], correct: 2, ref: 'Slide 2' },
+  { id: 172, text: '72. A high-risk neonate is defined by exposure to any condition that:', choices: ['Is genetic', 'Makes his life in danger', 'Is infectious', 'Is related to maternal age'], correct: 1, ref: 'Slide 3' },
+  { id: 173, text: '73. Which is a maternal factor?', choices: ['High-risk pregnancies due to lack of antenatal care', 'Neonatal hypoglycemia', 'Congenital anomalies', 'Prematurity'], correct: 0, ref: 'Slide 5' },
+  { id: 174, text: '74. Medical illness of mother includes:', choices: ['Diabetes, heart and kidney diseases', 'Neonatal sepsis', 'Premature rupture of membranes', 'Low Apgar score'], correct: 0, ref: 'Slide 5' },
+  { id: 175, text: '75. Complications of labor and delivery include:', choices: ['Prolonged rupture of membranes and cesarean section', 'Maternal diabetes', 'Neonatal infection', 'Congenital heart disease'], correct: 0, ref: 'Slide 5' },
+  { id: 176, text: '76. Neonatal factors include all EXCEPT:', choices: ['Neonatal asphyxia', 'Post-maturity', 'Maternal toxemia', 'Hypoglycemia'], correct: 2, ref: 'Slide 6' },
+  { id: 177, text: '77. Classification according to gestational age includes:', choices: ['SGA, AGA, LGA', 'Preterm, Term, Post-term', 'LBW, VLBW', 'Live birth, fetal death'], correct: 1, ref: 'Slide 8' },
+  { id: 178, text: '78. The image showing three babies compares:', choices: ['Weight categories', 'Gestational age categories', 'Mortality risks', 'Genetic syndromes'], correct: 1, ref: 'Slide 9' },
+  { id: 179, text: '79. The image with three growth curves illustrates:', choices: ['Mortality', 'SGA, AGA, LGA', 'LBW classification', 'Apgar scores'], correct: 1, ref: 'Slide 11' },
+  { id: 180, text: '80. The image of a tiny baby in an incubator likely represents:', choices: ['Term infant', 'Post-term infant', 'Low birth weight or extremely low birth weight infant', 'Infant with congenital anomalies'], correct: 2, ref: 'Slide 13' },
+  { id: 181, text: '81. The diagram with timeline (fetus, birth, etc.) is about:', choices: ['Growth', 'Mortality classification', 'Gestational age', 'Nutrition'], correct: 1, ref: 'Slide 15' },
+  { id: 182, text: '82. Pathophysiologic problems are associated with:', choices: ['State of maturity of the infant', 'Maternal health only', 'Environmental factors', 'Genetic factors only'], correct: 0, ref: 'Slide 16' },
+  { id: 183, text: '83. Hypothermia is mentioned as a problem related to:', choices: ['Immature thermoregulation', 'Overheating', 'Infection', 'Metabolic disorders'], correct: 0, ref: 'Slide 16' },
+  { id: 184, text: '84. The description "gelatinous" refers to the infant\'s:', choices: ['Bones', 'Skin', 'Muscles', 'Eyes'], correct: 1, ref: 'Slide 19' },
+  { id: 185, text: '85. The presentation includes images of:', choices: ['Male and female genitalia for comparison', 'Internal organs', 'Brain scans', 'X-rays'], correct: 0, ref: 'Slide 22' },
+  { id: 186, text: '86. The nursing care plan is for:', choices: ['The mother', 'The high-risk infant', 'The family', 'The healthcare team'], correct: 1, ref: 'Slide 23' },
+  { id: 187, text: '87. The assessment includes general assessment and:', choices: ['Six other specific assessments', 'Only neurological assessment', 'Only cardiovascular assessment', 'No specific assessments'], correct: 0, ref: 'Slide 24' },
+  { id: 188, text: '88. How many nursing diagnoses are listed in the presented care plan?', choices: ['One', 'Two', 'Three', 'Four'], correct: 2, ref: 'Slide 25' },
+  { id: 189, text: '89. The nursing diagnosis "Risk for infection" is related to:', choices: ['Excessive immunizations', 'Deficient immunologic defenses', 'Poor hand hygiene by staff', 'Overcrowding'], correct: 1, ref: 'Slide 25' },
+  { id: 190, text: '90. The phrase "greater than average chance of morbidity or mortality" defines:', choices: ['Any newborn', 'High-risk neonate', 'Term infant', 'Post-term infant'], correct: 1, ref: 'Slide 3' },
+  { id: 191, text: '91. Which is NOT a classification according to size?', choices: ['LBW', 'VLBW', 'ELBW', 'SGA'], correct: 3, ref: 'Slides 10, 12' },
+  { id: 192, text: '92. What does the abbreviation "AGA" stand for?', choices: ['Appropriate for Gestational Age', 'Average Growth Assessment', 'Abnormal Gestational Age', 'Advanced Growth Age'], correct: 0, ref: 'Slide 10' },
+  { id: 193, text: '93. The mortality classification that occurs after 28 days up to 1 year is:', choices: ['Neonatal death', 'Postnatal death', 'Perinatal death', 'Infant mortality'], correct: 1, ref: 'Slide 15' },
+  { id: 194, text: '94. The characteristics section describes a high-risk infant as having:', choices: ['A small head', 'A relatively large head', 'Normal head proportion', 'Microcephaly'], correct: 1, ref: 'Slide 18' },
+  { id: 195, text: '95. The ears of a high-risk infant are described as:', choices: ['Hard and well-formed', 'Soft', 'Large and protruding', 'Missing'], correct: 1, ref: 'Slide 18' },
+  { id: 196, text: '96. The fingernails and toenails are described as:', choices: ['Long', 'Short', 'Absent', 'Overgrown'], correct: 1, ref: 'Slide 19' },
+  { id: 197, text: '97. Which reflex is not specifically mentioned as possibly absent or poor?', choices: ['Sucking', 'Swallowing', 'Gag', 'Moro'], correct: 3, ref: 'Slide 20' },
+  { id: 198, text: '98. The nursing care plan is a framework for:', choices: ['Medical treatment only', 'Nursing care', 'Surgical planning', 'Discharge'], correct: 1, ref: 'Slide 23' },
+  { id: 199, text: '99. The final part of the nursing care plan shown is:', choices: ['Nursing intervention', 'Evaluation', 'Patient outcome', 'Diagnosis'], correct: 2, ref: 'Slide 23' },
+  { id: 200, text: '100. The presentation ends with:', choices: ['A list of references', 'Contact information', 'The nursing diagnoses slide', 'Thank you slide'], correct: 3, ref: 'Last slide' }
+];
+
+let current = 0;
+const answers = Array(questions.length).fill(null);
+let answered = Array(questions.length).fill(false); // To lock after answering
+
+function render(){
+  const q = questions[current];
+  const container = document.getElementById('quiz');
+
+  container.innerHTML = `
+    <div class="qnum">Question ${current+1} of ${questions.length} <span class="small">(Ref: ${q.ref})</span></div>
+    <div class="question">${q.text}</div>
+    <div class="options">
+      ${q.choices.map((c,i)=>`<label class="option"><input type="radio" name="choice" value="${i}" ${answers[current]===i? 'checked' : ''} ${answered[current] ? 'disabled' : ''}> <span>${String.fromCharCode(65+i)}) ${c}</span></label>`).join('')}
+    </div>
+    <div id="feedback" style="margin-top:12px"></div>
+  `;
+
+  document.getElementById('prevBtn').disabled = current===0;
+  document.getElementById('nextBtn').disabled = !answered[current];
+  document.getElementById('nextBtn').textContent = current===questions.length-1? 'Finish Quiz' : 'Next';
+
+  updateProgress();
+  attachOptionListeners();
+
+  if(answered[current]) showImmediateFeedback();
+}
+
+function attachOptionListeners(){
+  const opts = document.querySelectorAll('input[name=choice]');
+  opts.forEach(o=>o.addEventListener('change', (e)=>{
+    answers[current] = parseInt(e.target.value);
+    answered[current] = true;
+    showImmediateFeedback();
+    disableOptions();
+    document.getElementById('nextBtn').disabled = false;
+  }));
+}
+
+function disableOptions(){
+  document.querySelectorAll('input[name=choice]').forEach(o=>o.disabled = true);
+}
+
+function showImmediateFeedback(){
+  const fb = document.getElementById('feedback');
+  const q = questions[current];
+  const isCorrect = answers[current] === q.correct;
+
+  fb.innerHTML = isCorrect ?
+    `<div class='fb-correct'>Correct ✔</div>` :
+    `<div class='fb-wrong'>Incorrect ✘ — Correct answer is (${String.fromCharCode(65+q.correct)}) ${q.choices[q.correct]}</div>`;
+}
+
+function updateProgress(){
+  const pct = Math.round(((current)/questions.length)*100);
+  document.getElementById('progbar').style.width = pct+'%';
+}
+
+function prev(){ if(current>0){ current--; render(); } }
+
+function next(){
+  if(!answered[current]){
+    alert('Please select an answer before continuing.');
+    return;
+  }
+  if(current < questions.length-1){ current++; render(); return; }
+  showResult();
+}
+
+function showResult(){
+  let correctCount = 0;
+  questions.forEach((q,i)=>{
+    if(answers[i] === q.correct) correctCount++;
+  });
+  const percent = Math.round((correctCount/questions.length)*100);
+  const final = document.getElementById('final');
+  final.style.display = '';
+  final.innerHTML = `
+    <div class="result ${percent>=60? 'ok':'bad'}">
+      <div style="font-weight:700;font-size:18px">Your Score: ${correctCount}/${questions.length} — ${percent}%</div>
+      <div class="small" style="margin-top:6px">${percent>=60? 'Good job!' : 'Review the material and try again.'}</div>
+    </div>
+    <div style="margin-top:12px">
+      <button id="restartBtn">Restart Quiz</button>
+    </div>
+  `;
+
+  document.getElementById('prevBtn').disabled = true;
+  document.getElementById('nextBtn').disabled = true;
+
+  document.getElementById('restartBtn').addEventListener('click', ()=>{
+    for(let i=0;i<answers.length;i++){ answers[i]=null; answered[i]=false; }
+    current = 0;
+    document.getElementById('final').style.display='none';
+    document.getElementById('prevBtn').disabled=false;
+    document.getElementById('nextBtn').disabled=false;
+    render();
+  });
+}
+
+// Attach buttons
+document.getElementById('prevBtn').addEventListener('click', prev);
+document.getElementById('nextBtn').addEventListener('click', next);
+
+// initialize
+render();
+</script>
+</body>
+</html>
