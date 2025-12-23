@@ -51,106 +51,426 @@
 
 <script>
 const questions = [
-{"id": 1, "text": "Angina is chest pain associated with:", "choices": ["Myocardial infarction", "Myocardial ischemia", "Pericarditis", "Endocarditis"], "correct": 1, "ref": "Page 3: ANGINA" },
-{"id": 2, "text": "Angina is characterized as being:", "choices": ["Permanent and causing cell death", "Transient and not causing cell death", "Always fatal", "Only occurring at rest"], "correct": 1, "ref": "Page 3: ANGINA" },
-{"id": 3, "text": "Angina occurs when:", "choices": ["Oxygen supply is higher than demand", "Oxygen demand is higher than supply", "Blood pressure is too high", "Heart rate is too slow"], "correct": 1, "ref": "Page 3: ANGINA" },
-{"id": 4, "text": "Classic angina pain is typically described as:", "choices": ["Sharp, stabbing pain in the left chest", "Midsternal pressure", "Burning in the throat", "Pain in the lower abdomen"], "correct": 1, "ref": "Page 3: ANGINA - Classic characteristics" },
-{"id": 5, "text": "Angina pain may radiate to the:", "choices": ["Feet", "Arms, jaw, or back", "Lower back only", "Top of the head"], "correct": 1, "ref": "Page 3: ANGINA - Classic characteristics" },
-{"id": 6, "text": "Stable (chronic, exertional) angina is also known as:", "choices": ["Prinzmetal's angina", "Crescendo angina", "Effort, classic angina", "Variant angina"], "correct": 2, "ref": "Page 4: ANGINA - Types" },
-{"id": 7, "text": "An ECG finding associated with stable angina is:", "choices": ["ST elevation", "Q waves", "T-wave inversion", "Prolonged PR interval"], "correct": 2, "ref": "Page 4: ANGINA - Types" },
-{"id": 8, "text": "Treatment for stable angina includes:", "choices": ["Rest and nitroglycerin", "Immediate CABG surgery", "Thrombolytics", "Calcium channel blockers only"], "correct": 0, "ref": "Page 4: ANGINA - Types" },
-{"id": 9, "text": "Unstable (crescendo) angina is characterized by:", "choices": ["Less frequent and severe pain", "More often and severe pain with less relief", "Pain only during sleep", "Pain relieved by exercise"], "correct": 1, "ref": "Page 4: ANGINA - Types" },
-{"id": 10, "text": "An ECG finding that may be seen in unstable angina is:", "choices": ["T-wave inversion only", "ST elevation", "No changes", "Short QT interval"], "correct": 1, "ref": "Page 4: ANGINA - Types" },
-{"id": 11, "text": "Treatment for unstable angina may include:", "choices": ["Rest, nitroglycerin, drugs affecting platelets, and revascularization", "Only calcium channel blockers", "Only lifestyle modification", "Antibiotics"], "correct": 0, "ref": "Page 4: ANGINA - Types" },
-{"id": 12, "text": "Variant angina (Prinzmetal's) is caused by:", "choices": ["Atherosclerotic plaque rupture", "Coronary artery vasospasms", "Emboli", "Blunt trauma"], "correct": 1, "ref": "Page 4: ANGINA - Types" },
-{"id": 13, "text": "An ECG finding during a variant angina episode is:", "choices": ["ST depression", "ST elevation", "No change", "Widened QRS"], "correct": 1, "ref": "Page 4: ANGINA - Types" },
-{"id": 14, "text": "The primary treatment for variant angina is:", "choices": ["Beta-blockers", "Nitroglycerin", "Calcium channel blockers", "Thrombolytics"], "correct": 2, "ref": "Page 4: ANGINA - Types" },
-{"id": 15, "text": "A key nursing diagnosis for a patient with angina is:", "choices": ["Acute chest pain related to myocardial ischemia", "Chronic pain related to bone fracture", "Impaired gas exchange related to pneumonia", "Fluid volume excess related to renal failure"], "correct": 0, "ref": "Page 5: NURSING MANAGEMENT:ANGINA" },
-{"id": 16, "text": "Another nursing diagnosis for angina is:", "choices": ["Activity intolerance related to chest pain and imbalance between oxygen supply and demand", "Risk for infection related to surgery", "Disturbed body image related to amputation", "Ineffective coping related to job loss"], "correct": 0, "ref": "Page 5: NURSING MANAGEMENT:ANGINA" },
-{"id": 17, "text": "Nursing management of a patient with angina is directed toward:", "choices": ["Immediate administration of nitrates", "Assessment of history of previous vaginal episodes", "Assessment and documentation of chest pain episodes", "Administration of prophylactic lidocaine"], "correct": 2, "ref": "Page 6: QUICK QUIZ!" },
-{"id": 18, "text": "Acute Coronary Syndrome (ACS) includes the diagnoses of:", "choices": ["Stable angina and pericarditis", "Unstable angina and acute myocardial infarction", "Endocarditis and myocarditis", "Heart failure and cardiomyopathy"], "correct": 1, "ref": "Page 7: ACUTE MYOCARDIAL INFARCTION (AMI)" },
-{"id": 19, "text": "AMI is defined as NSTEMI or STEMI based on:", "choices": ["Patient age", "ECG characteristics", "Blood pressure readings", "Serum cholesterol levels"], "correct": 1, "ref": "Page 7: ACUTE MYOCARDIAL INFARCTION (AMI)" },
-{"id": 20, "text": "Prompt recognition and treatment of ACS results in:", "choices": ["Increased hospital stay", "Improved outcomes", "No change in prognosis", "More complications"], "correct": 1, "ref": "Page 7: ACUTE MYOCARDIAL INFARCTION (AMI)" },
-{"id": 21, "text": "A cause of AMI is:", "choices": ["Atherosclerosis", "Hypothyroidism", "Asthma", "Peptic ulcer disease"], "correct": 0, "ref": "Page 7: ACUTE MYOCARDIAL INFARCTION (AMI)" },
-{"id": 22, "text": "STEMI usually occurs because of:", "choices": ["Partially occluded coronary vessel", "Plaque rupture leading to complete occlusion", "Vasospasm", "Low blood pressure"], "correct": 1, "ref": "Page 8: ACUTE MYOCARDIAL INFARCTION (AMI) (CONTINUED)" },
-{"id": 23, "text": "NSTEMI usually results from:", "choices": ["Complete occlusion of the artery", "Partially occluded coronary vessel", "Cardiac tamponade", "Aortic dissection"], "correct": 1, "ref": "Page 8: ACUTE MYOCARDIAL INFARCTION (AMI) (CONTINUED)" },
-{"id": 24, "text": "Most infarcts occur in the:", "choices": ["Right atrium", "Left ventricle", "Right ventricle", "Left atrium"], "correct": 1, "ref": "Page 8: ACUTE MYOCARDIAL INFARCTION (AMI) (CONTINUED)" },
-{"id": 25, "text": "Right ventricular infarction commonly occurs in patients with:", "choices": ["Anterior wall infarction", "Inferior wall infarction", "Lateral wall infarction", "Septal infarction"], "correct": 1, "ref": "Page 8: ACUTE MYOCARDIAL INFARCTION (AMI) (CONTINUED)" },
-{"id": 26, "text": "A Q-wave MI is associated with:", "choices": ["Partial occlusion of the coronary artery", "Total occlusion of the coronary artery with thrombus", "Vasospasm only", "No thrombus formation"], "correct": 1, "ref": "Page 8: ACUTE MYOCARDIAL INFARCTION (AMI) (CONTINUED)" },
-{"id": 27, "text": "Non-Q-wave MI is associated with:", "choices": ["Total occlusion", "Partial occlusion of the coronary artery", "No occlusion", "Embolism from the legs"], "correct": 1, "ref": "Page 8: ACUTE MYOCARDIAL INFARCTION (AMI) (CONTINUED)" },
-{"id": 28, "text": "Assessment findings in AMI include:", "choices": ["Midsternal chest pain, severe and crushing", "Sharp pain in the right lower quadrant", "Headache and dizziness", "Pain relieved by nitrates"], "correct": 0, "ref": "Page 9: ASSESSMENT OF AMI" },
-{"id": 29, "text": "Chest pain in AMI is typically:", "choices": ["Relieved with rest", "Unrelieved with nitrates", "Worsened by lying down", "Described as burning"], "correct": 1, "ref": "Page 9: ASSESSMENT OF AMI" },
-{"id": 30, "text": "A patient with AMI may appear:", "choices": ["Flushed and hot", "Pale and diaphoretic", "Jaundiced", "Cyanotic only"], "correct": 1, "ref": "Page 9: ASSESSMENT OF AMI" },
-{"id": 31, "text": "Gastrointestinal symptoms associated with AMI can include:", "choices": ["Diarrhea", "Constipation", "Nausea and vomiting", "Increased appetite"], "correct": 2, "ref": "Page 9: ASSESSMENT OF AMI" },
-{"id": 32, "text": "The zone of infarction and necrosis in AMI represents:", "choices": ["Reversible injury", "Area with potential for recovery", "Dead myocardial cells", "Area of ischemia"], "correct": 2, "ref": "Page 10: DIAGNOSIS OF AMI" },
-{"id": 33, "text": "Women with AMI often present with:", "choices": ["Classic symptoms only", "Atypical symptoms", "No symptoms", "Only syncope"], "correct": 1, "ref": "Page 10: DIAGNOSIS OF AMI" },
-{"id": 34, "text": "On a 12-lead ECG, ST elevation followed by a Q wave indicates:", "choices": ["Non-Q-wave MI", "Q-wave myocardial infarction", "Unstable angina", "Pericarditis"], "correct": 1, "ref": "Page 10: DIAGNOSIS OF AMI" },
-{"id": 35, "text": "An elevated cardiac enzyme specific to the heart is:", "choices": ["CPK-MB", "AST", "ALT", "Amylase"], "correct": 0, "ref": "Page 10: DIAGNOSIS OF AMI" },
-{"id": 36, "text": "Elevated serum troponin I/T is indicative of:", "choices": ["Liver damage", "Kidney injury", "Myocardial injury", "Skeletal muscle injury"], "correct": 2, "ref": "Page 10: DIAGNOSIS OF AMI" },
-{"id": 37, "text": "The most conclusive ECG finding for infarction is:", "choices": ["Inverted T waves", "ST-segment depression", "Q waves", "Tall, peaked T waves"], "correct": 2, "ref": "Page 11: QUICK QUIZ!" },
-{"id": 38, "text": "A complication of AMI is:", "choices": ["Hypertension", "Dysrhythmias", "Hyperglycemia", "Rash"], "correct": 1, "ref": "Page 12: COMPLICATIONS OF AMI" },
-{"id": 39, "text": "Sudden death can be a complication of AMI due to:", "choices": ["Bradycardia", "Tachycardia or ventricular fibrillation", "Hypertension", "Fever"], "correct": 1, "ref": "Page 12: COMPLICATIONS OF AMI" },
-{"id": 40, "text": "Congestive heart failure and cardiogenic shock are complications of AMI resulting from:", "choices": ["Increased cardiac output", "Pump failure", "Hypervolemia", "Vasodilation"], "correct": 1, "ref": "Page 12: COMPLICATIONS OF AMI" },
-{"id": 41, "text": "Another potential complication of AMI is:", "choices": ["Ventricular aneurysm or rupture", "Improved contractility", "Decreased heart size", "Reduced stroke volume"], "correct": 0, "ref": "Page 12: COMPLICATIONS OF AMI" },
-{"id": 42, "text": "Medical management of AMI includes pain relief with:", "choices": ["Ibuprofen only", "Morphine and nitroglycerin", "Acetaminophen", "Aspirin only"], "correct": 1, "ref": "Page 13: MEDICAL MANAGEMENT:AMI" },
-{"id": 43, "text": "Oxygen administration in AMI aims to:", "choices": ["Increase myocardial oxygen demand", "Decrease oxygen supply", "Increase oxygen supply to ischemic myocardium", "Cause vasoconstriction"], "correct": 2, "ref": "Page 13: MEDICAL MANAGEMENT:AMI" },
-{"id": 44, "text": "Drugs affecting platelets used in AMI management include:", "choices": ["ASA (Aspirin)", "Insulin", "Diuretics", "Bronchodilators"], "correct": 0, "ref": "Page 13: MEDICAL MANAGEMENT:AMI" },
-{"id": 45, "text": "Beta-blockers in AMI help by:", "choices": ["Increasing heart rate and contractility", "Decreasing heart rate and myocardial oxygen demand", "Causing vasodilation only", "Increasing afterload"], "correct": 1, "ref": "Page 13: MEDICAL MANAGEMENT:AMI" },
-{"id": 46, "text": "ACE inhibitors are used in AMI to:", "choices": ["Increase blood pressure", "Cause vasoconstriction", "Reduce afterload and prevent remodeling", "Increase preload"], "correct": 2, "ref": "Page 13: MEDICAL MANAGEMENT:AMI" },
-{"id": 47, "text": "After giving the first dose of morphine for chest pain, the next priority action is to:", "choices": ["Change the IV tubing", "Bathe the patient", "Assess for pain relief and adverse effects", "Initiate oxygen"], "correct": 2, "ref": "Page 14: QUICK QUIZ!" },
-{"id": 48, "text": "Primary angioplasty (PCI) should be performed within how many minutes of arrival to the ED?", "choices": ["30 minutes", "60 minutes (target) to 90 minutes", "120 minutes", "180 minutes"], "correct": 1, "ref": "Page 15: PRIMARY ANGIOPLASTY" },
-{"id": 49, "text": "The phrase 'Time is muscle' refers to the importance of:", "choices": ["Delaying treatment to assess fully", "Rapid intervention in AMI to salvage myocardium", "Waiting for enzymes to rise", "Scheduling surgery electively"], "correct": 1, "ref": "Page 16: THROMBOLYTIC THERAPY" },
-{"id": 50, "text": "The therapeutic window for thrombolytic therapy in AMI is typically:", "choices": ["2 hours", "6 hours", "12 hours", "24 hours"], "correct": 1, "ref": "Page 16: THROMBOLYTIC THERAPY" },
-{"id": 51, "text": "An example of a thrombolytic agent is:", "choices": ["Heparin", "Tissue plasminogen activator (t-PA)", "Warfarin", "Aspirin"], "correct": 1, "ref": "Page 16: THROMBOLYTIC THERAPY" },
-{"id": 52, "text": "During thrombolytic therapy, nurses must observe for:", "choices": ["Hypertension", "Bleeding", "Bradycardia", "Hyperglycemia"], "correct": 1, "ref": "Page 16: THROMBOLYTIC THERAPY" },
-{"id": 53, "text": "The goal of interventional cardiology procedures like PTCA is to:", "choices": ["Decrease blood flow to the myocardium", "Increase blood flow to the myocardium", "Remove the pericardium", "Replace a heart valve"], "correct": 1, "ref": "Page 17: INTERVENTIONAL CARDIOLOGY" },
-{"id": 54, "text": "A criterion for PTCA is:", "choices": ["Calcified lesions", "Lesions on bifurcations of vessels", "Uncompromised collateral flow", "Compromised collateral flow"], "correct": 2, "ref": "Page 17: INTERVENTIONAL CARDIOLOGY" },
-{"id": 55, "text": "Intracoronary stents are used to:", "choices": ["Widen the arterial lumen and provide structural support", "Narrow the artery", "Deliver antibiotics", "Measure pressure"], "correct": 0, "ref": "Page 18: INTRACORONARY STENTS" },
-{"id": 56, "text": "Drug-eluting stents:", "choices": ["Have medications to maintain patency", "Are always bare metal", "Dissolve immediately", "Cause more restenosis"], "correct": 0, "ref": "Page 18: INTRACORONARY STENTS" },
-{"id": 57, "text": "Stents help prevent:", "choices": ["The restenosis associated with angioplasty", "Bleeding", "Infection", "Hypotension"], "correct": 0, "ref": "Page 18: INTRACORONARY STENTS" },
-{"id": 58, "text": "After stent placement, patients require:", "choices": ["No further medication", "Anticoagulation therapy", "Only pain medication", "Bed rest for a week"], "correct": 1, "ref": "Page 18: INTRACORONARY STENTS" },
-{"id": 59, "text": "CABG surgery is indicated for:", "choices": ["Mild stable angina responsive to medication", "Significant left main coronary occlusion (>50%)", "Single-vessel disease amenable to PTCA", "Young age only"], "correct": 1, "ref": "Page 20: CABG SURGERY" },
-{"id": 60, "text": "Common grafts used in CABG include:", "choices": ["Internal mammary artery and saphenous vein", "Femoral artery only", "Jugular vein", "Radial nerve"], "correct": 0, "ref": "Page 20: CABG SURGERY" },
-{"id": 61, "text": "Increased mortality risk with CABG is associated with:", "choices": ["Left ventricle dysfunction", "Young age", "Female sex", "Both A and C"], "correct": 3, "ref": "Page 21: RISKSASSOCIATEDWITHCABG" },
-{"id": 62, "text": "Traditional CABG is performed through a:", "choices": ["Midsternal, longitudinal incision (median sternotomy)", "Small incision in the groin", "Lateral thoracotomy", "Abdominal incision"], "correct": 0, "ref": "Page 22: TRADITIONAL CABG" },
-{"id": 63, "text": "During cardiopulmonary bypass, blood is oxygenated via:", "choices": ["The patient's lungs", "An oxygenator (heart-lung machine)", "The kidneys", "The liver"], "correct": 1, "ref": "Page 22: TRADITIONAL CABG" },
-{"id": 64, "text": "Cardioplegia solution is used to:", "choices": ["Speed up the heart rate", "Stop the heart for surgery", "Lower blood pressure", "Increase cardiac output"], "correct": 1, "ref": "Page 22: TRADITIONAL CABG" },
-{"id": 65, "text": "Minimally invasive direct coronary artery bypass (MIDCAB) surgery:", "choices": ["Always uses cardiopulmonary bypass", "Is done on a stopped heart", "Is done without cardiopulmonary bypass on a beating heart", "Requires a full sternotomy"], "correct": 2, "ref": "Page 23: MINIMALLY INVASIVE DIRECT CORONARY ARTERY BYPASS SURGERY" },
-{"id": 66, "text": "A complication of cardiac surgery is:", "choices": ["High cardiac output", "Mediastinal bleeding", "Hypervolemia", "Hypertension"], "correct": 1, "ref": "Page 24: CARDIAC SURGERY COMPLICATIONS" },
-{"id": 67, "text": "Infection after sternotomy is:", "choices": ["Not serious", "Very serious", "Common and easily treated", "Rarely occurs"], "correct": 1, "ref": "Page 24: CARDIAC SURGERY COMPLICATIONS" },
-{"id": 68, "text": "Atrial dysrhythmias are a common complication after:", "choices": ["Knee surgery", "Cardiac surgery", "Appendectomy", "Cataract surgery"], "correct": 1, "ref": "Page 24: CARDIAC SURGERY COMPLICATIONS" },
-{"id": 69, "text": "Low cardiac output after cardiac surgery can lead to:", "choices": ["Renal impairment and impaired peripheral circulation", "Improved gastrointestinal function", "Hypertension", "Polyuria"], "correct": 0, "ref": "Page 24: CARDIAC SURGERY COMPLICATIONS" },
-{"id": 70, "text": "Another complication of CABG is:", "choices": ["Improved contractility", "Pericardial tamponade", "Hyperventilation", "Hyperglycemia only"], "correct": 1, "ref": "Page 25: COMPLICATIONS OF CABG" },
-{"id": 71, "text": "Radiofrequency ablation is used to treat:", "choices": ["Supraventricular tachycardia", "Bradycardia", "Heart block", "Hypertension"], "correct": 0, "ref": "Page 26: DYSRHYTHMIAS" },
-{"id": 72, "text": "Permanent pacemakers can be programmed for:", "choices": ["Rate and voltage only", "Rate, voltage, sensitivity, stimulus duration, refractory period", "Only sensitivity", "Only stimulus duration"], "correct": 1, "ref": "Page 26: DYSRHYTHMIAS" },
-{"id": 73, "text": "Pacemakers are typically inserted:", "choices": ["Through the abdomen", "Transvenously", "Through the skull", "Through the stomach"], "correct": 1, "ref": "Page 26: DYSRHYTHMIAS" },
-{"id": 74, "text": "An Implantable Cardioverter-Defibrillator (ICD) is used to:", "choices": ["Treat slow heart rates only", "Treat survivors of sudden cardiac arrest", "Replace pacemakers in all patients", "Monitor blood pressure"], "correct": 1, "ref": "Page 27: IMPLANTABLE CARDIOVERTER-DEFIBRILLATOR (ICD)" },
-{"id": 75, "text": "An ICD can deliver:", "choices": ["Low-energy shocks only", "High-energy shock", "Medications", "Radiation"], "correct": 1, "ref": "Page 27: IMPLANTABLE CARDIOVERTER-DEFIBRILLATOR (ICD)" },
-{"id": 76, "text": "Pericarditis is an inflammation of the:", "choices": ["Myocardium", "Endocardium", "Pericardium", "Heart valves"], "correct": 2, "ref": "Page 28: INFLAMMATORY HEART DISEASE" },
-{"id": 77, "text": "Pericarditis can occur as a consequence of:", "choices": ["AMI", "Kidney injury (uremic pericarditis)", "Infection", "All of the above"], "correct": 3, "ref": "Page 28: INFLAMMATORY HEART DISEASE" },
-{"id": 78, "text": "A potential complication of pericarditis is:", "choices": ["Hypertension", "Cardiac tamponade", "Increased urine output", "Bradycardia without hypotension"], "correct": 1, "ref": "Page 28: INFLAMMATORY HEART DISEASE" },
-{"id": 79, "text": "Infective endocarditis involves:", "choices": ["The pericardium only", "Microorganisms attaching to an endocardial surface, often heart valves", "The myocardium only", "The coronary arteries"], "correct": 1, "ref": "Page 28: INFLAMMATORY HEART DISEASE" },
-{"id": 80, "text": "A sign of infective endocarditis is:", "choices": ["New murmur", "Clear heart sounds", "Hypotension only", "Tachycardia without fever"], "correct": 0, "ref": "Page 28: INFLAMMATORY HEART DISEASE" },
-{"id": 81, "text": "A hallmark of pericarditis is:", "choices": ["Friction rub", "Wheezing", "Crackles", "Gallop rhythm"], "correct": 0, "ref": "Page 29: PERICARDITIS" },
-{"id": 82, "text": "Another hallmark of pericarditis is:", "choices": ["Pulsus paradoxus", "Hypertension", "Bounding pulses", "Widened pulse pressure"], "correct": 0, "ref": "Page 29: PERICARDITIS" },
-{"id": 83, "text": "Initial ECG changes in pericarditis may show:", "choices": ["ST elevation", "ST depression", "Q waves", "Absent P waves"], "correct": 0, "ref": "Page 29: PERICARDITIS" },
-{"id": 84, "text": "Treatment for pericarditis may include:", "choices": ["Analgesics and anti-inflammatory agents like ibuprofen", "Only antibiotics", "Diuretics only", "Beta-blockers only"], "correct": 0, "ref": "Page 30: TREATMENT OF PERICARDITIS" },
-{"id": 85, "text": "Cardiac tamponade is treated with:", "choices": ["Pericardiocentesis", "Antibiotics only", "Increasing fluids only", "Pacemaker insertion"], "correct": 0, "ref": "Page 30: TREATMENT OF PERICARDITIS" },
-{"id": 86, "text": "A pericardial window is a surgical procedure to:", "choices": ["Remove part of the pericardium", "Insert a stent", "Replace a valve", "Bypass an artery"], "correct": 0, "ref": "Page 30: TREATMENT OF PERICARDITIS" },
-{"id": 87, "text": "Endocarditis is classified into types including:", "choices": ["Native valve endocarditis (NVE)", "Prosthetic valve endocarditis (PVE)", "Intravenous drug abuse (IVDA) related", "All of the above"], "correct": 3, "ref": "Page 31: ENDOCARDITIS" },
-{"id": 88, "text": "Diagnosis of endocarditis is often made by:", "choices": ["Chest X-ray", "Echocardiogram, especially transesophageal", "ECG only", "Blood pressure measurement"], "correct": 1, "ref": "Page 31: ENDOCARDITIS" },
-{"id": 89, "text": "Treatment for endocarditis includes:", "choices": ["Antibiotics and rest", "Surgery only", "Chemotherapy", "Radiation therapy"], "correct": 0, "ref": "Page 31: ENDOCARDITIS" },
-{"id": 90, "text": "Prevention of endocarditis may involve:", "choices": ["Antibiotic prophylaxis before certain procedures (e.g., dental work)", "No precautions needed", "Vaccination only", "Avoiding all medications"], "correct": 0, "ref": "Page 31: ENDOCARDITIS" },
-{"id": 91, "text": "An aortic aneurysm is defined as:", "choices": ["A narrowing of the artery", "Dilation or thinning of the arterial wall", "A blockage in the artery", "A tear in the artery"], "correct": 1, "ref": "Page 32: VASCULAR ALTERATIONS" },
-{"id": 92, "text": "Types of aortic aneurysms include:", "choices": ["Thoracic and abdominal", "Cerebral only", "Peripheral only", "Venous aneurysms"], "correct": 0, "ref": "Page 32: VASCULAR ALTERATIONS" },
-{"id": 93, "text": "A false aneurysm is characterized by:", "choices": ["Blood seeping through a hole and being walled off", "Uniform dilation of the artery", "A sac-like bulge on one side", "A split in the arterial wall"], "correct": 0, "ref": "Page 33: ANEURYSMS" },
-{"id": 94, "text": "A dissecting aneurysm involves:", "choices": ["A split in the arterial wall allowing blood flow between layers", "A sac-like bulge", "Uniform dilation", "A blockage"], "correct": 0, "ref": "Page 33: ANEURYSMS" },
-{"id": 95, "text": "Aortic dissection is characterized by:", "choices": ["A tear of the intimal layer of the vessel", "Slow, gradual pain", "No pain", "Pain only in the legs"], "correct": 0, "ref": "Page 34: VASCULAR ALTERATIONS (CONTINUED)" },
-{"id": 96, "text": "Pain from aortic dissection is often described as:", "choices": ["Dull and achy", "Sudden, sharp, and shifting", "Burning", "Cramping"], "correct": 1, "ref": "Page 34: VASCULAR ALTERATIONS (CONTINUED)" },
-{"id": 97, "text": "Marfan syndrome is a risk factor for:", "choices": ["Aortic aneurysm and dissection", "Lung cancer", "Skin infections", "Diabetes"], "correct": 0, "ref": "Page 34: VASCULAR ALTERATIONS (CONTINUED)" },
-{"id": 98, "text": "Surgical repair of an aortic aneurysm can be done via:", "choices": ["Open approach (endoaneurysmal repair)", "Endovascular approach", "Both open and endovascular", "Medication only"], "correct": 2, "ref": "Page 35: VASCULAR ALTERATIONS (CONTINUED)" },
-{"id": 99, "text": "In endoaneurysmal repair, a synthetic graft is inserted and then:", "choices": ["Removed after a week", "The native aortic wall is sutured over it", "Left exposed", "Covered with skin only"], "correct": 1, "ref": "Page 36: ENDOANEURYSMAL REPAIR" },
-{"id": 100, "text": "The author of this lecture is:", "choices": ["Dr. John Smith", "Associate Prof. Amira Mohammed Ali", "Dr. Sarah Jones", "Ailla Medical Media"], "correct": 1, "ref": "Page 1: CARDIOVASCULAR ALTERATIONS" }
+  {
+    "id": 1,
+    "text": "The most common early sign of shock is:",
+    "choices": ["Low blood pressure", "Fast heart rate", "High urine output", "Warm skin"],
+    "correct": 1,
+    "ref": "Shock - Copy.pdf, page 5"
+  },
+  {
+    "id": 2,
+    "text": "In hypovolemic shock, the main problem is",
+    "choices": ["Weak heart pumping", "Too much blood loss", "Allergic reaction", "Severe infection"],
+    "correct": 1,
+    "ref": "Shock - Copy.pdf, page 8"
+  },
+  {
+    "id": 3,
+    "text": "First action in suspected shock",
+    "choices": ["Give a meal", "Check vital signs", "Give diuretics", "Stop oxygen"],
+    "correct": 1,
+    "ref": "Shock - Copy.pdf, pages 28-29"
+  },
+  {
+    "id": 4,
+    "text": "In septic shock the skin is usually",
+    "choices": ["Warm", "Cold", "Blue spots", "Dry"],
+    "correct": 0,
+    "ref": "Shock - Copy.pdf, page 15"
+  },
+  {
+    "id": 5,
+    "text": "In anaphylactic shock, the life-saving drug is:",
+    "choices": ["Hydrocortisone", "IM adrenaline", "IV fluids only", "Paracetamol"],
+    "correct": 1,
+    "ref": "Shock - Copy.pdf, page 33"
+  },
+  {
+    "id": 6,
+    "text": "MODS means",
+    "choices": ["Many infections", "Multiple organs stop working", "Liver failure only", "Kidney failure only"],
+    "correct": 1,
+    "ref": "MultiOrganFailure - Copy.pdf, page 1"
+  },
+  {
+    "id": 7,
+    "text": "Early organ commonly affected in MODS",
+    "choices": ["Lungs", "Skin", "Bones", "Thyroid"],
+    "correct": 0,
+    "ref": "MultiOrganFailure - Copy.pdf, page 7"
+  },
+  {
+    "id": 8,
+    "text": "Important sign of kidney failure in MODS:",
+    "choices": ["Sweating", "Oliguria", "Diarrhea", "Fast speech"],
+    "correct": 1,
+    "ref": "MultiOrganFailure - Copy.pdf, page 10"
+  },
+  {
+    "id": 9,
+    "text": "A key sign that the liver is affected in MODS is:",
+    "choices": ["Yellowish skin (jaundice)", "Increased urine output", "Slow heart rate", "Fast breathing"],
+    "correct": 0,
+    "ref": "MultiOrganFailure - Copy.pdf, page 11"
+  },
+  {
+    "id": 10,
+    "text": "Best nursing action in MODS:",
+    "choices": ["Stop monitoring", "Monitor urine output hourly", "Give large meals", "Let patient sleep"],
+    "correct": 1,
+    "ref": "MultiOrganFailure - Copy.pdf, page 10"
+  },
+  {
+    "id": 11,
+    "text": "The P wave represents:",
+    "choices": ["Ventricular contraction", "Atrial contraction", "Ventricular relaxation", "Heart rest"],
+    "correct": 1,
+    "ref": "ECG - Copy.pptx (slide: P wave description)"
+  },
+  {
+    "id": 12,
+    "text": "Normal heart rhythm is called:",
+    "choices": ["V-tach", "A-fib", "Sinus rhythm", "Heart block"],
+    "correct": 2,
+    "ref": "ECG - Copy.pptx (slide: Normal Sinus Rhythm)"
+  },
+  {
+    "id": 13,
+    "text": "Normal ECG heart rate range:",
+    "choices": ["20–40", "40–60", "60–100", "100–150"],
+    "correct": 2,
+    "ref": "ECG - Copy.pptx (slide: Normal heart rate)"
+  },
+  {
+    "id": 14,
+    "text": "ST elevation usually means:",
+    "choices": ["Normal ECG", "Acute heart attack", "Anxiety", "Dehydration"],
+    "correct": 1,
+    "ref": "acute coronary $.pptx (slide: STEMI)"
+  },
+  {
+    "id": 15,
+    "text": "Which ECG finding is commonly seen in dehydration?",
+    "choices": ["Tall T waves", "Sinus tachycardia", "ST elevation", "Wide QRS1"],
+    "correct": 1,
+    "ref": "Shock - Copy.pdf, page 5"
+  },
+  {
+    "id": 16,
+    "text": "The typical symptom of ACS is:",
+    "choices": ["Leg pain", "Chest pain", "Headache", "Back itch"],
+    "correct": 1,
+    "ref": "acute coronary $.pptx (slide: Symptoms)"
+  },
+  {
+    "id": 17,
+    "text": "First thing to give a patient with suspected MI:",
+    "choices": ["Aspirin", "Milk", "Antibiotic", "Insulin"],
+    "correct": 0,
+    "ref": "acute coronary $.pptx (slide: MONA)"
+  },
+  {
+    "id": 18,
+    "text": "NSTEMI is diagnosed by:",
+    "choices": ["Normal troponin", "High troponin", "Very low glucose", "Normal ECG"],
+    "correct": 1,
+    "ref": "acute coronary $.pptx (slide: Diagnosis)"
+  },
+  {
+    "id": 19,
+    "text": "The main cause of MI is:",
+    "choices": ["Kidney stones", "Blood clot in coronary artery", "Pneumonia", "Dehydration"],
+    "correct": 1,
+    "ref": "acute coronary $.pptx (slide: Cause)"
+  },
+  {
+    "id": 20,
+    "text": "The most important ECG change in STEMI is:",
+    "choices": ["ST elevation", "U wave", "Low P wave", "Wide T wave"],
+    "correct": 0,
+    "ref": "acute coronary $.pptx (slide: STEMI)"
+  },
+  {
+    "id": 21,
+    "text": "Adult CPR compression-to-breath ratio:",
+    "choices": ["10:2", "20:2", "30:2", "5:1"],
+    "correct": 2,
+    "ref": "BLS & ALS.pptx (slide: CPR)"
+  },
+  {
+    "id": 22,
+    "text": "Depth of adult chest compressions:",
+    "choices": ["1 cm", "2 cm", "At least 5 cm", "10 cm"],
+    "correct": 2,
+    "ref": "BLS & ALS.pptx (slide: High-quality CPR)"
+  },
+  {
+    "id": 23,
+    "text": "Shockable rhythms are:",
+    "choices": ["Asystole & PEA", "VT & VF", "Sinus rhythm", "A-fib only"],
+    "correct": 1,
+    "ref": "BLS & ALS.pptx (slide: Shockable rhythms)"
+  },
+  {
+    "id": 24,
+    "text": "The drug used in asystole during ALS:",
+    "choices": ["Atropine", "Adrenaline", "Amiodarone", "Furosemide"],
+    "correct": 1,
+    "ref": "BLS & ALS.pptx (slide: Non-shockable rhythms)"
+  },
+  {
+    "id": 25,
+    "text": "Best place to check pulse during CPR:",
+    "choices": ["Carotid", "Radial", "Brachial (in adults)", "Femoral"],
+    "correct": 0,
+    "ref": "BLS & ALS.pptx (slide: CPR assessment)"
+  },
+  {
+    "id": 26,
+    "text": "Recognition of circulation problems during ABCDE Approach done by the following maneuvers except:",
+    "choices": ["Feel central pulse (carotid) and compare it to peripheral pulse", "Feel Peripheral perfusion, capillary refill time.", "Measure Random Blood Sugar (RBS)", "Measure Blood pressure"],
+    "correct": 2,
+    "ref": "DKA - Copy.pptx (slide: ABCDE approach)"
+  },
+  {
+    "id": 27,
+    "text": "Risk factors of acute coronary syndrome include:",
+    "choices": ["Cigarettes smoking", "Young age", "Healthy lifestyle", "Female gender"],
+    "correct": 0,
+    "ref": "acute coronary $.pptx (slide: Risk factors)"
+  },
+  {
+    "id": 28,
+    "text": "Typical chest pain:",
+    "choices": ["Relieve by exercise", "Tender on palpation", "Compressing retrosternal pain", "Radiate to right side"],
+    "correct": 2,
+    "ref": "acute coronary $.pptx (slide: Symptoms)"
+  },
+  {
+    "id": 29,
+    "text": "Regarding classification of diabetic ketoacidosis, it is classified into mild, moderate and severe according to:",
+    "choices": ["Bicarbonate and PCO2", "PH and bicarbonate", "PH and anion gap", "PH and PCO2"],
+    "correct": 1,
+    "ref": "DKA - Copy.pptx (slide: Classification)"
+  },
+  {
+    "id": 30,
+    "text": "Severe DKA, the PH will be in the range of:",
+    "choices": ["7.25-7.30", "below 7.00", "7.10-7.30", "7.25-7.35"],
+    "correct": 1,
+    "ref": "DKA - Copy.pptx (slide: Classification)"
+  },
+  {
+    "id": 31,
+    "text": "Regarding to DKA insulin infusion should be:",
+    "choices": ["0.1 IU/kg/day", "0.1 IU/kg/min", "10.0 IU/kg/hour", "0.1 IU/kg/hour"],
+    "correct": 3,
+    "ref": "DKA - Copy.pptx (slide: Management)"
+  },
+  {
+    "id": 32,
+    "text": "Beck’s triad for diagnosis of cardiac tamponade includes:",
+    "choices": ["Hypotension", "Muffled heart sounds", "Congested neck veins", "All of the above"],
+    "correct": 3,
+    "ref": "Shock - Copy.pdf, page 13"
+  },
+  {
+    "id": 33,
+    "text": "The normal capillary refill is:",
+    "choices": ["less than 2 sec", "less than 4 sec", "more than 5 sec", "less than 3 sec"],
+    "correct": 0,
+    "ref": "Shock - Copy.pdf, page 9"
+  },
+  {
+    "id": 34,
+    "text": "Complete occlusion of the lumen of certain coronary artery:",
+    "choices": ["STEMI", "Stable Angina", "Unstable Angina", "Non-STEMI"],
+    "correct": 0,
+    "ref": "acute coronary $.pptx (slide: STEMI)"
+  },
+  {
+    "id": 35,
+    "text": "The respiratory failure type 2 has:",
+    "choices": ["pco2 low", "pco2 high", "pco2 fluctuating", "pco2 normal"],
+    "correct": 1,
+    "ref": "ABG.pptx (slide: Interpretation)"
+  },
+  {
+    "id": 36,
+    "text": "ECG characterized by PR interval which become longer with each succeeding ECG complex until the is P wave not followed by QRS is seen in?",
+    "choices": ["second degree AV block type 2", "first degree AV block.", "second degree AV block type 1.", "third degree AV block"],
+    "correct": 2,
+    "ref": "ECG - Copy.pptx (slide: ECG interpretation)"
+  },
+  {
+    "id": 37,
+    "text": "A patient is admitted with chest pain to the ER. The patient has been in the ER for 5 hours and is being admitted to your unit for overnight observation. From the options below, what is the most IMPORTANT information to know about this patient at this time?",
+    "choices": ["Troponin result and when the next troponin level is due to be collected", "Diet status", "Oxygen saturation", "CK result and when the next CK level is due to be collected"],
+    "correct": 0,
+    "ref": "acute coronary $.pptx (slide: Diagnosis)"
+  },
+  {
+    "id": 38,
+    "text": "On an EKG, the lateral view of the heart is represented with leads?",
+    "choices": ["I, AVL, V5, V6", "V1, V2, V3", "V1, V2, V6", "II, II, AVF"],
+    "correct": 0,
+    "ref": "acute coronary $.pptx (slide: Lateral MI)"
+  },
+  {
+    "id": 39,
+    "text": "A nurse is performing an assessment on a client who was admitted to the hospital with a diagnosis of carbon monoxide poisoning. Which of the following assessments performed by the nurse would primarily elicit data related to a deterioration of the client’s condition?",
+    "choices": ["respiratory rate", "skin color", "level of consciousness.", "apical rate"],
+    "correct": 2,
+    "ref": "burn aya (1).pptx (slide: Inhalation injury)"
+  },
+  {
+    "id": 40,
+    "text": "A patient has the following arterial blood gases: PaCO2 33, HCO3 15, pH 7.23. Which condition below is presenting?",
+    "choices": ["respiratory acidosis", "metabolic alkalosis", "respiratory alkalosis", "metabolic acidosis"],
+    "correct": 3,
+    "ref": "ABG.pptx (slide: Interpretation)"
+  },
+  {
+    "id": 41,
+    "text": "The goal is to maintain adequate tissue oxygenation, generally achieved with an arterial oxygen tension (PaO₂):",
+    "choices": ["40 mmhg", "60 mmhg", "30 mmhg", "50 mmhg"],
+    "correct": 1,
+    "ref": "ABG.pptx (slide: Normal values)"
+  },
+  {
+    "id": 42,
+    "text": "IN ABCDE approach, D is referred to:",
+    "choices": ["DIC", "Drugs", "Disturbed level", "Disability"],
+    "correct": 3,
+    "ref": "DKA - Copy.pptx (slide: ABCDE approach)"
+  },
+  {
+    "id": 43,
+    "text": "all of these are signs of shock except:",
+    "choices": ["Fever", "Tachycardia", "Altered mental status.", "Hypotension"],
+    "correct": 0,
+    "ref": "Shock - Copy.pdf, page 5"
+  },
+  {
+    "id": 44,
+    "text": "In massive pulmonary embolism, the immediate and definitive management is:",
+    "choices": ["Fluids", "Oxygen", "Thrombolytic therapy", "Heparin"],
+    "correct": 2,
+    "ref": "BLS & ALS.pptx (slide: Reversible causes)"
+  },
+  {
+    "id": 45,
+    "text": "Using CT pulmonary angiography is the gold standard investigation of:",
+    "choices": ["Respiratory failure", "Myocardial infarction", "Diabetic ketoacidosis", "Pulmonary embolism"],
+    "correct": 3,
+    "ref": "Not explicitly in files; standard medical knowledge."
+  },
+  {
+    "id": 46,
+    "text": "A patient presented to ED with head trauma, GCS was 13/15. He had ...... head trauma:",
+    "choices": ["Severe", "Mild", "Moderate", "none of above"],
+    "correct": 1,
+    "ref": "Not in files; standard trauma scoring."
+  },
+  {
+    "id": 47,
+    "text": "Our main enemy in ER is time. We need \"ABCDE\" system which is:",
+    "choices": ["Pick up critically ill patient.", "Slow.", "Allow delayed intervention.", "All of the above."],
+    "correct": 0,
+    "ref": "Multiple files (e.g., DKA, ACS) use ABCDE."
+  },
+  {
+    "id": 48,
+    "text": "A patient reports during a routine check-up that he is experiencing chest pain and shortness of breath while performing activities. He states the pain goes away when he rests. This is known as:",
+    "choices": ["Variant angina.", "Unstable angina.", "Prinzmetal angina.", "Stable angina."],
+    "correct": 3,
+    "ref": "Not explicitly in files; standard cardiology knowledge."
+  },
+  {
+    "id": 49,
+    "text": "In emergency situation, you should go first for assessment of.....",
+    "choices": ["Pulse.", "Bone fracture.", "Circulation.", "Airway."],
+    "correct": 3,
+    "ref": "Multiple files (e.g., DKA, ACS) use ABCDE."
+  },
+  {
+    "id": 50,
+    "text": "The sequence of chest examination is as follow:",
+    "choices": ["Inspection, palpation, percussion then auscultation.", "Auscultation, inspection, percussion then palpation.", "Inspection, auscultation, percussion then palpation.", "Any sequence can be used."],
+    "correct": 0,
+    "ref": "Standard physical examination protocol."
+  },
+  {
+    "id": 51,
+    "text": "Regarding Lateral myocardial infarction, ECG will show ST segment elevation in leads:",
+    "choices": ["V1-V4", "I, AVL and V5-6", "II, III and AVF", "II, AVR and AVF"],
+    "correct": 1,
+    "ref": "acute coronary $.pptx (slide: Lateral MI)"
+  },
+  {
+    "id": 52,
+    "text": "Atrial fibrillation appears in ECG strip as:",
+    "choices": ["Narrow regular", "Wide regular tachycardia", "Wide irregular tachycardia.", "Narrow irregular."],
+    "correct": 3,
+    "ref": "ECG - Copy.pptx (slide: Dysrhythmias)"
+  },
+  {
+    "id": 53,
+    "text": "Adverse signs of tachyarrhythmia and bradyarrhythmia include which of the following:",
+    "choices": ["shock.", "Heart inflammation.", "Heart cancer.", "Heart infection."],
+    "correct": 0,
+    "ref": "Shock - Copy.pdf, page 5"
+  },
+  {
+    "id": 54,
+    "text": "Which of the following is a cause of airway obstruction?",
+    "choices": ["CNS depression.", "Foreign body.", "Trauma.", "All of the above."],
+    "correct": 3,
+    "ref": "BLS & ALS.pptx (slide: Airway obstruction)"
+  },
+  {
+    "id": 55,
+    "text": "Pupils examination is considered a part of :",
+    "choices": ["Circulation assessment", "Airway assessment", "Breathing assessment", "Disability assessment"],
+    "correct": 3,
+    "ref": "DKA - Copy.pptx (slide: ABCDE approach)"
+  },
+  {
+    "id": 56,
+    "text": "Regarding Non-ST segment elevation myocardial infarction, cardiac enzymes will:",
+    "choices": ["Not changed", "Increased", "Decreased", "Not required to be done"],
+    "correct": 1,
+    "ref": "acute coronary $.pptx (slide: NSTEMI)"
+  },
+  {
+    "id": 57,
+    "text": "Ethanol toxicity will lead to which of the following:",
+    "choices": ["Respiratory alkalosis", "Metabolic acidosis", "Respiratory acidosis", "Metabolic alkalosis"],
+    "correct": 1,
+    "ref": "ABG.pptx (slide: DUMPILES)"
+  },
+  {
+    "id": 58,
+    "text": "How do you know when to start CPR?",
+    "choices": ["If the patient has pulse but is having trouble breathing.", "If the patient is responsive but is complaining of chest pain.", "If the patient is unresponsive, not breathing, doesn’t have pulse", "If the patient is unresponsive, but is breathing adequately."],
+    "correct": 2,
+    "ref": "BLS & ALS.pptx (slide: CPR initiation)"
+  },
+  {
+    "id": 59,
+    "text": "Regarding Tachyarrhythmias, which one of the following appears as wide regular tachycardia?",
+    "choices": ["Atrial fibrillation", "Supraventricular tachycardia", "Ventricular tachycardia", "Atrial fibrillation with bundle branch block"],
+    "correct": 2,
+    "ref": "ECG - Copy.pptx (slide: Dysrhythmias)"
+  },
+  {
+    "id": 60,
+    "text": "Which of the following statements are INCORRECT about Diabetic Ketoacidosis?",
+    "choices": ["Extreme Hyperglycemia that presents with blood glucose >600 mg/dL", "Ketones are present in the urine", "Metabolic acidosis is present with Kussmaul breathing.", "Potassium levels should be at least 3.3 or higher during treatment of DKA with insulin therapy."],
+    "correct": 0,
+    "ref": "DKA - Copy.pptx (slide: DKA definition & management)"
+  }
 ];
 
 let current = 0;
