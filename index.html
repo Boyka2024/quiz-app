@@ -51,425 +51,426 @@
 
 <script>
 const questions = [
+ 
   {
     "id": 1,
-    "text": "The most common early sign of shock is:",
-    "choices": ["Low blood pressure", "Fast heart rate", "High urine output", "Warm skin"],
-    "correct": 1,
-    "ref": "Shock - Copy.pdf, page 5"
+    "text": "Directions of G and D reflect the physical development and maturation of neuromuscular functions.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: Growth and development .......pdf, page 14"
   },
   {
     "id": 2,
-    "text": "In hypovolemic shock, the main problem is",
-    "choices": ["Weak heart pumping", "Too much blood loss", "Allergic reaction", "Severe infection"],
+    "text": "At birth chest circumference is about 2-3cm larger than head circumference.",
+    "choices": ["True", "False"],
     "correct": 1,
-    "ref": "Shock - Copy.pdf, page 8"
+    "ref": "From file: new born.pdf, page 6"
   },
   {
     "id": 3,
-    "text": "First action in suspected shock",
-    "choices": ["Give a meal", "Check vital signs", "Give diuretics", "Stop oxygen"],
-    "correct": 1,
-    "ref": "Shock - Copy.pdf, pages 28-29"
+    "text": "When assessing newborn baby we notice that his movements are irregular and uncoordinated.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: new born.pdf, page 15"
   },
   {
     "id": 4,
-    "text": "In septic shock the skin is usually",
-    "choices": ["Warm", "Cold", "Blue spots", "Dry"],
-    "correct": 0,
-    "ref": "Shock - Copy.pdf, page 15"
+    "text": "Preschool child shows signs of jealousy of peers.",
+    "choices": ["True", "False"],
+    "correct": 1,
+    "ref": "From file: preschool.pdf, page 17"
   },
   {
     "id": 5,
-    "text": "In anaphylactic shock, the life-saving drug is:",
-    "choices": ["Hydrocortisone", "IM adrenaline", "IV fluids only", "Paracetamol"],
-    "correct": 1,
-    "ref": "Shock - Copy.pdf, page 33"
+    "text": "Newborn baby gains 3/4 kg by the end of first month.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: new born.pdf, page 5"
   },
   {
     "id": 6,
-    "text": "MODS means",
-    "choices": ["Many infections", "Multiple organs stop working", "Liver failure only", "Kidney failure only"],
-    "correct": 1,
-    "ref": "MultiOrganFailure - Copy.pdf, page 1"
+    "text": "Human Growth & development are continuous process and dependent on each other.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: Growth and development .......pdf, page 10"
   },
   {
     "id": 7,
-    "text": "Early organ commonly affected in MODS",
-    "choices": ["Lungs", "Skin", "Bones", "Thyroid"],
-    "correct": 0,
-    "ref": "MultiOrganFailure - Copy.pdf, page 7"
+    "text": "During toddler stage the brain develops to about 66% of its adult size.",
+    "choices": ["True", "False"],
+    "correct": 1,
+    "ref": "From file: toddler.pdf, page 6"
   },
   {
     "id": 8,
-    "text": "Important sign of kidney failure in MODS:",
-    "choices": ["Sweating", "Oliguria", "Diarrhea", "Fast speech"],
+    "text": "Boys and girls in preschool stage are characterized by long legged.",
+    "choices": ["True", "False"],
     "correct": 1,
-    "ref": "MultiOrganFailure - Copy.pdf, page 10"
+    "ref": "From file: School age.pdf, page 5 (referring to school age, not preschool)"
   },
   {
     "id": 9,
-    "text": "A key sign that the liver is affected in MODS is:",
-    "choices": ["Yellowish skin (jaundice)", "Increased urine output", "Slow heart rate", "Fast breathing"],
-    "correct": 0,
-    "ref": "MultiOrganFailure - Copy.pdf, page 11"
+    "text": "Boys and girls have the same rate of growth and development.",
+    "choices": ["True", "False"],
+    "correct": 1,
+    "ref": "From file: Growth and development .......pdf, page 11"
   },
   {
     "id": 10,
-    "text": "Best nursing action in MODS:",
-    "choices": ["Stop monitoring", "Monitor urine output hourly", "Give large meals", "Let patient sleep"],
-    "correct": 1,
-    "ref": "MultiOrganFailure - Copy.pdf, page 10"
+    "text": "Depressed of anterior fontanel indicates to dehydration or shock.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: infancy.pdf, page 16"
   },
   {
     "id": 11,
-    "text": "The P wave represents:",
-    "choices": ["Ventricular contraction", "Atrial contraction", "Ventricular relaxation", "Heart rest"],
-    "correct": 1,
-    "ref": "ECG - Copy.pptx (slide: P wave description)"
+    "text": "During adolescence stage growth in height ceases at 16 or 17 yrs., in females and 18 to 20 in males.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: adolescent.pdf, page 9"
   },
   {
     "id": 12,
-    "text": "Normal heart rhythm is called:",
-    "choices": ["V-tach", "A-fib", "Sinus rhythm", "Heart block"],
-    "correct": 2,
-    "ref": "ECG - Copy.pptx (slide: Normal Sinus Rhythm)"
+    "text": "Preschool age child is doubles birth length by 4-5 years age.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: preschool.pdf, page 5"
   },
   {
     "id": 13,
-    "text": "Normal ECG heart rate range:",
-    "choices": ["20–40", "40–60", "60–100", "100–150"],
-    "correct": 2,
-    "ref": "ECG - Copy.pptx (slide: Normal heart rate)"
+    "text": "First tooth normally erupt in the lower jaw of infant's mouth and called central incisors.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: infancy.pdf, page 22"
   },
   {
     "id": 14,
-    "text": "ST elevation usually means:",
-    "choices": ["Normal ECG", "Acute heart attack", "Anxiety", "Dehydration"],
-    "correct": 1,
-    "ref": "acute coronary $.pptx (slide: STEMI)"
+    "text": "Pediatric nurse should usually encourage mothers for exclusive breast feeding for the age 6 months.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: Breast Feeding Group A.ppt, introduction"
   },
   {
     "id": 15,
-    "text": "Which ECG finding is commonly seen in dehydration?",
-    "choices": ["Tall T waves", "Sinus tachycardia", "ST elevation", "Wide QRS1"],
+    "text": "Growth can be measured accurately in kilograms; meters and its changes are qualitative.",
+    "choices": ["True", "False"],
     "correct": 1,
-    "ref": "Shock - Copy.pdf, page 5"
+    "ref": "From file: Growth and development .......pdf, page 3"
   },
   {
     "id": 16,
-    "text": "The typical symptom of ACS is:",
-    "choices": ["Leg pain", "Chest pain", "Headache", "Back itch"],
-    "correct": 1,
-    "ref": "acute coronary $.pptx (slide: Symptoms)"
+    "text": "Breasts fed babies have fewer rates of ear infection, respiratory illness and bouts of diarrhea than artificial fed babies.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: Breast Feeding Group A.ppt, benefits for baby"
   },
   {
     "id": 17,
-    "text": "First thing to give a patient with suspected MI:",
-    "choices": ["Aspirin", "Milk", "Antibiotic", "Insulin"],
-    "correct": 0,
-    "ref": "acute coronary $.pptx (slide: MONA)"
+    "text": "Mother who had exposure to radioactive materials can continue breastfeeding safely.",
+    "choices": ["True", "False"],
+    "correct": 1,
+    "ref": "From file: Breast Feeding Group A.ppt, contraindications do not mention radiation, but general knowledge suggests false"
   },
   {
     "id": 18,
-    "text": "NSTEMI is diagnosed by:",
-    "choices": ["Normal troponin", "High troponin", "Very low glucose", "Normal ECG"],
-    "correct": 1,
-    "ref": "acute coronary $.pptx (slide: Diagnosis)"
+    "text": "Breast-feeding become inadequate to meet the infant's nutritional needs particularly in relation to iron and vitamin C at six months, so weaning is required.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: weaning2.pptx, introduction"
   },
   {
     "id": 19,
-    "text": "The main cause of MI is:",
-    "choices": ["Kidney stones", "Blood clot in coronary artery", "Pneumonia", "Dehydration"],
-    "correct": 1,
-    "ref": "acute coronary $.pptx (slide: Cause)"
+    "text": "Newborn expresses their feelings through crying.",
+    "choices": ["True", "False"],
+    "correct": 0,
+    "ref": "From file: new born.pdf, page 19"
   },
   {
     "id": 20,
-    "text": "The most important ECG change in STEMI is:",
-    "choices": ["ST elevation", "U wave", "Low P wave", "Wide T wave"],
+    "text": "Pediatric nurse should identify mothers that there is a different in growth rate according to the period of growth and development.",
+    "choices": ["True", "False"],
     "correct": 0,
-    "ref": "acute coronary $.pptx (slide: STEMI)"
+    "ref": "From file: Growth and development .......pdf, page 11"
   },
   {
     "id": 21,
-    "text": "Adult CPR compression-to-breath ratio:",
-    "choices": ["10:2", "20:2", "30:2", "5:1"],
+    "text": "pediatric nurse should know; two stages of growth & development are considered transitional period which are:",
+    "choices": ["Newborn & Infant.", "Infant & adolescent.", "Newborn & adolescent.", "Toddler & preschool"],
     "correct": 2,
-    "ref": "BLS & ALS.pptx (slide: CPR)"
+    "ref": "From file: new born.pdf page 3 and adolescent.pdf page 2"
   },
   {
     "id": 22,
-    "text": "Depth of adult chest compressions:",
-    "choices": ["1 cm", "2 cm", "At least 5 cm", "10 cm"],
-    "correct": 2,
-    "ref": "BLS & ALS.pptx (slide: High-quality CPR)"
+    "text": "Pediatric nurse should know progress of motor, language and cognitive of children points to:",
+    "choices": ["Development.", "Growth.", "Maturation.", "Progression."],
+    "correct": 0,
+    "ref": "From file: Growth and development .......pdf, page 6"
   },
   {
     "id": 23,
-    "text": "Shockable rhythms are:",
-    "choices": ["Asystole & PEA", "VT & VF", "Sinus rhythm", "A-fib only"],
+    "text": "Eruption of permanent teeth starts by……… years of age:",
+    "choices": ["5", "6", "8", "7"],
     "correct": 1,
-    "ref": "BLS & ALS.pptx (slide: Shockable rhythms)"
+    "ref": "From file: School age.pdf, page 18"
   },
   {
     "id": 24,
-    "text": "The drug used in asystole during ALS:",
-    "choices": ["Atropine", "Adrenaline", "Amiodarone", "Furosemide"],
-    "correct": 1,
-    "ref": "BLS & ALS.pptx (slide: Non-shockable rhythms)"
+    "text": "Head length in newborn is ………of the total body length:",
+    "choices": ["1/4", "1/5", "1/3", "3/4"],
+    "correct": 0,
+    "ref": "From file: new born.pdf, page 6"
   },
   {
     "id": 25,
-    "text": "Best place to check pulse during CPR:",
-    "choices": ["Carotid", "Radial", "Brachial (in adults)", "Femoral"],
-    "correct": 0,
-    "ref": "BLS & ALS.pptx (slide: CPR assessment)"
+    "text": "Infant communicates his emotion and physiological needs through:",
+    "choices": ["Laughter.", "Body movement.", "Crying.", "A, B & C"],
+    "correct": 3,
+    "ref": "From file: infancy.pdf, page 61"
   },
   {
     "id": 26,
-    "text": "Recognition of circulation problems during ABCDE Approach done by the following maneuvers except:",
-    "choices": ["Feel central pulse (carotid) and compare it to peripheral pulse", "Feel Peripheral perfusion, capillary refill time.", "Measure Random Blood Sugar (RBS)", "Measure Blood pressure"],
-    "correct": 2,
-    "ref": "DKA - Copy.pptx (slide: ABCDE approach)"
+    "text": "Weight of an 10 yrs. old age child will be:",
+    "choices": ["33 kg.", "34 kg.", "35 kg.", "32.5 kg."],
+    "correct": 3,
+    "ref": "From file: School age.pdf, page 7"
   },
   {
     "id": 27,
-    "text": "Risk factors of acute coronary syndrome include:",
-    "choices": ["Cigarettes smoking", "Young age", "Healthy lifestyle", "Female gender"],
-    "correct": 0,
-    "ref": "acute coronary $.pptx (slide: Risk factors)"
+    "text": "when the adolescent is unable to develop a sense of who are and what he will become, this result in a sense of ......:",
+    "choices": ["Shame.", "Guilt.", "Self-diffusion.", "Identity."],
+    "correct": 2,
+    "ref": "From file: adolescent.pdf, page 17"
   },
   {
     "id": 28,
-    "text": "Typical chest pain:",
-    "choices": ["Relieve by exercise", "Tender on palpation", "Compressing retrosternal pain", "Radiate to right side"],
-    "correct": 2,
-    "ref": "acute coronary $.pptx (slide: Symptoms)"
+    "text": "Changes that occur in child's development as cognitive & emotional are characterized by:",
+    "choices": ["Quantitative and accurate measure.", "Quantitative & not accurate measure.", "Qualitative & accurate measure.", "Qualitative & not accurate measure."],
+    "correct": 3,
+    "ref": "From file: Growth and development .......pdf, page 6"
   },
   {
     "id": 29,
-    "text": "Regarding classification of diabetic ketoacidosis, it is classified into mild, moderate and severe according to:",
-    "choices": ["Bicarbonate and PCO2", "PH and bicarbonate", "PH and anion gap", "PH and PCO2"],
-    "correct": 1,
-    "ref": "DKA - Copy.pptx (slide: Classification)"
+    "text": "Pediatric nurse should know the school child gains...... between......",
+    "choices": ["28 teeth between 6 and 12 years.", "28 teeth between 6 and 8 years.", "28 teeth between 8 and 10 years.", "28 teeth between 10 and 12 years."],
+    "correct": 0,
+    "ref": "From file: School age.pdf, page 18"
   },
   {
     "id": 30,
-    "text": "Severe DKA, the PH will be in the range of:",
-    "choices": ["7.25-7.30", "below 7.00", "7.10-7.30", "7.25-7.35"],
-    "correct": 1,
-    "ref": "DKA - Copy.pptx (slide: Classification)"
+    "text": "when you are observing an infant child is sitting before standing and walking, this action point to......direction:",
+    "choices": ["Cephalocaudal.", "Proximodistal.", "Simple to complex.", "General to specific."],
+    "correct": 0,
+    "ref": "From file: Growth and development .......pdf, page 15"
   },
   {
     "id": 31,
-    "text": "Regarding to DKA insulin infusion should be:",
-    "choices": ["0.1 IU/kg/day", "0.1 IU/kg/min", "10.0 IU/kg/hour", "0.1 IU/kg/hour"],
-    "correct": 3,
-    "ref": "DKA - Copy.pptx (slide: Management)"
+    "text": "Aware of separation anxiety develops in......",
+    "choices": ["Infant.", "Preschool", "Toddler.", "School."],
+    "correct": 2,
+    "ref": "From file: toddler.pdf, page 20"
   },
   {
     "id": 32,
-    "text": "Beck’s triad for diagnosis of cardiac tamponade includes:",
-    "choices": ["Hypotension", "Muffled heart sounds", "Congested neck veins", "All of the above"],
-    "correct": 3,
-    "ref": "Shock - Copy.pdf, page 13"
+    "text": "Boy adolescence will gain weight………during this stage:",
+    "choices": ["7- 25 Kg.", "7- 20 Kg.", "7- 30 Kg.", "7- 35 Kg."],
+    "correct": 2,
+    "ref": "From file: adolescent.pdf, page 9"
   },
   {
     "id": 33,
-    "text": "The normal capillary refill is:",
-    "choices": ["less than 2 sec", "less than 4 sec", "more than 5 sec", "less than 3 sec"],
-    "correct": 0,
-    "ref": "Shock - Copy.pdf, page 9"
+    "text": "When pediatric nurse is assessing the anterior fontanel, and found it bulges. while the child is not crying, it refers to",
+    "choices": ["Fever", "Dehydration", "Decrease of intra cranial pressure (ICP).", "An increase of intra cranial pressure (ICP)."],
+    "correct": 3,
+    "ref": "From file: infancy.pdf, page 16"
   },
   {
     "id": 34,
-    "text": "Complete occlusion of the lumen of certain coronary artery:",
-    "choices": ["STEMI", "Stable Angina", "Unstable Angina", "Non-STEMI"],
-    "correct": 0,
-    "ref": "acute coronary $.pptx (slide: STEMI)"
+    "text": "When assessing the anterior fontanel, it locates between",
+    "choices": ["Occipital and 2 parietal bones.", "2 frontal and 2 parietal bones.", "Occipital and 2 frontal bones.", "2 parietal and 2 parietal bones."],
+    "correct": 1,
+    "ref": "From file: infancy.pdf, page 11"
   },
   {
     "id": 35,
-    "text": "The respiratory failure type 2 has:",
-    "choices": ["pco2 low", "pco2 high", "pco2 fluctuating", "pco2 normal"],
-    "correct": 1,
-    "ref": "ABG.pptx (slide: Interpretation)"
+    "text": "Newborn loose his birth weight by …………… days of life.",
+    "choices": ["3-4-days", "2-5-days", "3-6-days", "4-7-days"],
+    "correct": 0,
+    "ref": "From file: new born.pdf, page 4"
   },
   {
     "id": 36,
-    "text": "ECG characterized by PR interval which become longer with each succeeding ECG complex until the is P wave not followed by QRS is seen in?",
-    "choices": ["second degree AV block type 2", "first degree AV block.", "second degree AV block type 1.", "third degree AV block"],
-    "correct": 2,
-    "ref": "ECG - Copy.pptx (slide: ECG interpretation)"
+    "text": "The most developed sense in newborn that is comfortable for him is:",
+    "choices": ["Vision.", "Touch.", "Smell.", "Hearing."],
+    "correct": 1,
+    "ref": "From file: new born.pdf, page 9"
   },
   {
     "id": 37,
-    "text": "A patient is admitted with chest pain to the ER. The patient has been in the ER for 5 hours and is being admitted to your unit for overnight observation. From the options below, what is the most IMPORTANT information to know about this patient at this time?",
-    "choices": ["Troponin result and when the next troponin level is due to be collected", "Diet status", "Oxygen saturation", "CK result and when the next CK level is due to be collected"],
-    "correct": 0,
-    "ref": "acute coronary $.pptx (slide: Diagnosis)"
+    "text": "By…. old child's length will triple birth length:",
+    "choices": ["10 year.", "11year.", "12 year.", "13 year."],
+    "correct": 3,
+    "ref": "From file: adolescent.pdf, page 9"
   },
   {
     "id": 38,
-    "text": "On an EKG, the lateral view of the heart is represented with leads?",
-    "choices": ["I, AVL, V5, V6", "V1, V2, V3", "V1, V2, V6", "II, II, AVF"],
-    "correct": 0,
-    "ref": "acute coronary $.pptx (slide: Lateral MI)"
+    "text": "One of the following is true of school age children's cognitive development:",
+    "choices": ["Reading and learning.", "Asking questions.", "Classify objects to class and subclasses.", "A, B & C"],
+    "correct": 3,
+    "ref": "From file: School age.pdf, pages 25-26"
   },
   {
     "id": 39,
-    "text": "A nurse is performing an assessment on a client who was admitted to the hospital with a diagnosis of carbon monoxide poisoning. Which of the following assessments performed by the nurse would primarily elicit data related to a deterioration of the client’s condition?",
-    "choices": ["respiratory rate", "skin color", "level of consciousness.", "apical rate"],
-    "correct": 2,
-    "ref": "burn aya (1).pptx (slide: Inhalation injury)"
+    "text": "Birth weight of child is double and triple in …….. stage:",
+    "choices": ["Infant.", "Newborn.", "Toddler.", "Preschool."],
+    "correct": 0,
+    "ref": "From file: infancy.pdf, page 7"
   },
   {
     "id": 40,
-    "text": "A patient has the following arterial blood gases: PaCO2 33, HCO3 15, pH 7.23. Which condition below is presenting?",
-    "choices": ["respiratory acidosis", "metabolic alkalosis", "respiratory alkalosis", "metabolic acidosis"],
-    "correct": 3,
-    "ref": "ABG.pptx (slide: Interpretation)"
+    "text": "Mother of a 9 months infant should know he able to:",
+    "choices": ["Creeping well.", "Crawling.", "Throw objects.", "Hold cup to drink."],
+    "correct": 1,
+    "ref": "From file: infancy.pdf, page 38"
   },
   {
     "id": 41,
-    "text": "The goal is to maintain adequate tissue oxygenation, generally achieved with an arterial oxygen tension (PaO₂):",
-    "choices": ["40 mmhg", "60 mmhg", "30 mmhg", "50 mmhg"],
-    "correct": 1,
-    "ref": "ABG.pptx (slide: Normal values)"
+    "text": "All the following are characteristics of emotional development of toddler child , but there is one not true:",
+    "choices": ["Strangers cause anxiety to child.", "Afraid from falling.", "Temper-tantrum.", "Afraid from loud voices."],
+    "correct": 0,
+    "ref": "From file: toddler.pdf, page 20"
   },
   {
     "id": 42,
-    "text": "IN ABCDE approach, D is referred to:",
-    "choices": ["DIC", "Drugs", "Disturbed level", "Disability"],
+    "text": "When assessing preschooler child's behavior and we noticed that the child wants to learn what to do for himself and world; this means the child develops a sense of:",
+    "choices": ["Trust.", "Autonomy.", "Industry.", "Initiative."],
     "correct": 3,
-    "ref": "DKA - Copy.pptx (slide: ABCDE approach)"
+    "ref": "From file: preschool.pdf, page 21"
   },
   {
     "id": 43,
-    "text": "all of these are signs of shock except:",
-    "choices": ["Fever", "Tachycardia", "Altered mental status.", "Hypotension"],
-    "correct": 0,
-    "ref": "Shock - Copy.pdf, page 5"
+    "text": "Infant's length increases about ...... during the first 3 months:",
+    "choices": ["1cm/month.", "2cm /month.", "3cm /month.", "4cm/month."],
+    "correct": 2,
+    "ref": "From file: infancy.pdf, page 9"
   },
   {
     "id": 44,
-    "text": "In massive pulmonary embolism, the immediate and definitive management is:",
-    "choices": ["Fluids", "Oxygen", "Thrombolytic therapy", "Heparin"],
-    "correct": 2,
-    "ref": "BLS & ALS.pptx (slide: Reversible causes)"
+    "text": "Head circumference from 1 year to adult increase:",
+    "choices": ["5cm.", "9cm.", "7cm.", "10cm."],
+    "correct": 3,
+    "ref": "From file: toddler.pdf, page 6"
   },
   {
     "id": 45,
-    "text": "Using CT pulmonary angiography is the gold standard investigation of:",
-    "choices": ["Respiratory failure", "Myocardial infarction", "Diabetic ketoacidosis", "Pulmonary embolism"],
+    "text": "When assessing the anterior fontanel, the pediatric nurse should know it locates between:",
+    "choices": ["Occipital & two parietal bones and measures about 0.5cm in length.", "Occipital & two parietal bones and measures about 3-4cm in length.", "Two frontal & two parietal bones and measures 1-2cm in length.", "Two frontal & two parietal bones and measures 3-4cm in length."],
     "correct": 3,
-    "ref": "Not explicitly in files; standard medical knowledge."
+    "ref": "From file: infancy.pdf, page 11"
   },
   {
     "id": 46,
-    "text": "A patient presented to ED with head trauma, GCS was 13/15. He had ...... head trauma:",
-    "choices": ["Severe", "Mild", "Moderate", "none of above"],
-    "correct": 1,
-    "ref": "Not in files; standard trauma scoring."
+    "text": "Chest circumference at the end of first year of infant's age is ......head circumference:",
+    "choices": ["Equal.", "Smaller than.", "Larger than", "Proportionate."],
+    "correct": 0,
+    "ref": "From file: infancy.pdf, page 17"
   },
   {
     "id": 47,
-    "text": "Our main enemy in ER is time. We need \"ABCDE\" system which is:",
-    "choices": ["Pick up critically ill patient.", "Slow.", "Allow delayed intervention.", "All of the above."],
-    "correct": 0,
-    "ref": "Multiple files (e.g., DKA, ACS) use ABCDE."
+    "text": "At 6 months of infant's age, he able to:",
+    "choices": ["Sit with support.", "Site alone briefly.", "Raises to sitting position.", "Moves from prone to sitting position."],
+    "correct": 1,
+    "ref": "From file: infancy.pdf, page 37"
   },
   {
     "id": 48,
-    "text": "A patient reports during a routine check-up that he is experiencing chest pain and shortness of breath while performing activities. He states the pain goes away when he rests. This is known as:",
-    "choices": ["Variant angina.", "Unstable angina.", "Prinzmetal angina.", "Stable angina."],
-    "correct": 3,
-    "ref": "Not explicitly in files; standard cardiology knowledge."
+    "text": "pediatric nurse should stress on parents to hold, talked to, warmer and give pleasant sensation to their infant that lead to achieve:",
+    "choices": ["Trust.", "Autonomy.", "Initiative.", "Industry."],
+    "correct": 0,
+    "ref": "From file: infancy.pdf, pages 56-57"
   },
   {
     "id": 49,
-    "text": "In emergency situation, you should go first for assessment of.....",
-    "choices": ["Pulse.", "Bone fracture.", "Circulation.", "Airway."],
-    "correct": 3,
-    "ref": "Multiple files (e.g., DKA, ACS) use ABCDE."
+    "text": "………stage is a time of intense exploration of the environment:",
+    "choices": ["Newborn.", "Infant.", "Toddler.", "Preschool."],
+    "correct": 2,
+    "ref": "From file: toddler.pdf, page 2"
   },
   {
     "id": 50,
-    "text": "The sequence of chest examination is as follow:",
-    "choices": ["Inspection, palpation, percussion then auscultation.", "Auscultation, inspection, percussion then palpation.", "Inspection, auscultation, percussion then palpation.", "Any sequence can be used."],
-    "correct": 0,
-    "ref": "Standard physical examination protocol."
+    "text": "A 4 yrs., old age child his length will be:",
+    "choices": ["90cm", "100cm.", "110cm.", "120cm."],
+    "correct": 1,
+    "ref": "From file: toddler.pdf, page 5"
   },
   {
     "id": 51,
-    "text": "Regarding Lateral myocardial infarction, ECG will show ST segment elevation in leads:",
-    "choices": ["V1-V4", "I, AVL and V5-6", "II, III and AVF", "II, AVR and AVF"],
-    "correct": 1,
-    "ref": "acute coronary $.pptx (slide: Lateral MI)"
+    "text": "The most important needs of toddler child are:",
+    "choices": ["Rest & sleep.", "Nutrition.", "Love& security.", "Toilet training."],
+    "correct": 2,
+    "ref": "From file: infancy.pdf page 66 and toddler.pdf page 26"
   },
   {
     "id": 52,
-    "text": "Atrial fibrillation appears in ECG strip as:",
-    "choices": ["Narrow regular", "Wide regular tachycardia", "Wide irregular tachycardia.", "Narrow irregular."],
+    "text": "Toddler child with 3 years can able to:",
+    "choices": ["Climbs and Jumps from greater heights.", "Cuts with scissors.", "Baths himself with assistance.", "Rides tricycle, using pedals."],
     "correct": 3,
-    "ref": "ECG - Copy.pptx (slide: Dysrhythmias)"
+    "ref": "From file: preschool.pdf, page 9"
   },
   {
     "id": 53,
-    "text": "Adverse signs of tachyarrhythmia and bradyarrhythmia include which of the following:",
-    "choices": ["shock.", "Heart inflammation.", "Heart cancer.", "Heart infection."],
-    "correct": 0,
-    "ref": "Shock - Copy.pdf, page 5"
+    "text": "Industry sense will achieve in children during:",
+    "choices": ["Infant stage.", "Toddler stage.", "Preschool stage.", "School stage."],
+    "correct": 3,
+    "ref": "From file: School age.pdf, page 33"
   },
   {
     "id": 54,
-    "text": "Which of the following is a cause of airway obstruction?",
-    "choices": ["CNS depression.", "Foreign body.", "Trauma.", "All of the above."],
-    "correct": 3,
-    "ref": "BLS & ALS.pptx (slide: Airway obstruction)"
+    "text": "Which stage of growth and development is characterized by latency stage:",
+    "choices": ["School.", "Preschool.", "Toddler.", "Adolescent."],
+    "correct": 0,
+    "ref": "From file: School age.pdf, page 3"
   },
   {
     "id": 55,
-    "text": "Pupils examination is considered a part of :",
-    "choices": ["Circulation assessment", "Airway assessment", "Breathing assessment", "Disability assessment"],
-    "correct": 3,
-    "ref": "DKA - Copy.pptx (slide: ABCDE approach)"
+    "text": "………..milk acts as laxative to speed the passage of meconium in newborns baby.",
+    "choices": ["Transitional milk.", "Colostrum", "Immature milk", "Mature milk"],
+    "correct": 1,
+    "ref": "From file: Breast Feeding Group A.ppt, stages of breast milk"
   },
   {
     "id": 56,
-    "text": "Regarding Non-ST segment elevation myocardial infarction, cardiac enzymes will:",
-    "choices": ["Not changed", "Increased", "Decreased", "Not required to be done"],
-    "correct": 1,
-    "ref": "acute coronary $.pptx (slide: NSTEMI)"
+    "text": "Pediatric nurse as educator the most important advice should give to parents regarding health care of their school age children is about:",
+    "choices": ["Skin care.", "Eye care.", "Foot care.", "Dental care."],
+    "correct": 3,
+    "ref": "From file: School age.pdf, pages 37 and 41"
   },
   {
     "id": 57,
-    "text": "Ethanol toxicity will lead to which of the following:",
-    "choices": ["Respiratory alkalosis", "Metabolic acidosis", "Respiratory acidosis", "Metabolic alkalosis"],
-    "correct": 1,
-    "ref": "ABG.pptx (slide: DUMPILES)"
+    "text": "Growth rate during infant is characterized by:",
+    "choices": ["Rapid.", "Slow.", "Very rapid.", "Stable."],
+    "correct": 0,
+    "ref": "From file: infancy.pdf, page 4"
   },
   {
     "id": 58,
-    "text": "How do you know when to start CPR?",
-    "choices": ["If the patient has pulse but is having trouble breathing.", "If the patient is responsive but is complaining of chest pain.", "If the patient is unresponsive, not breathing, doesn’t have pulse", "If the patient is unresponsive, but is breathing adequately."],
-    "correct": 2,
-    "ref": "BLS & ALS.pptx (slide: CPR initiation)"
+    "text": "Boys and girls during school stage their legs are:",
+    "choices": ["Long.", "Short.", "Fat.", "Thin."],
+    "correct": 0,
+    "ref": "From file: School age.pdf, page 5"
   },
   {
     "id": 59,
-    "text": "Regarding Tachyarrhythmias, which one of the following appears as wide regular tachycardia?",
-    "choices": ["Atrial fibrillation", "Supraventricular tachycardia", "Ventricular tachycardia", "Atrial fibrillation with bundle branch block"],
-    "correct": 2,
-    "ref": "ECG - Copy.pptx (slide: Dysrhythmias)"
+    "text": "Aware of stranger faces (stranger anxiety) develops in infant at……month of age.",
+    "choices": ["6-7months.", "7-8 months.", "9-10", "11-12 months."],
+    "correct": 1,
+    "ref": "From file: infancy.pdf, page 53"
   },
   {
     "id": 60,
-    "text": "Which of the following statements are INCORRECT about Diabetic Ketoacidosis?",
-    "choices": ["Extreme Hyperglycemia that presents with blood glucose >600 mg/dL", "Ketones are present in the urine", "Metabolic acidosis is present with Kussmaul breathing.", "Potassium levels should be at least 3.3 or higher during treatment of DKA with insulin therapy."],
-    "correct": 0,
-    "ref": "DKA - Copy.pptx (slide: DKA definition & management)"
+    "text": "The best criteria for effective breast feeding are:",
+    "choices": ["Sleeping.", "Passing of urine.", "Increasing weight of baby.", "Baby is calm and comfort."],
+    "correct": 2,
+    "ref": "From file: Breast Feeding Group A.ppt, successful breast feeding"
   }
 ];
 
